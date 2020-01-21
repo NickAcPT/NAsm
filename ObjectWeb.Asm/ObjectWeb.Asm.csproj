@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <RootNamespace>ObjectWeb</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>1.0.3</PackageVersion>
+        <Authors>NickAcPT; OW2 ASM Authors</Authors>
+        <AssemblyVersion>1.0.3</AssemblyVersion>
+        <FileVersion>1.0.3</FileVersion>
+    </PropertyGroup>
+
+</Project>
