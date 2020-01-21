@@ -60,6 +60,6 @@ namespace ObjectWeb.Misc.Java.IO
 	    /// </remarks>
 	    /// <exception cref="IOException">if an I/O error occurs</exception>
 	    /// <exception cref="System.IO.IOException" />
-	    void Close();
+	    new void Close();
     }
 }

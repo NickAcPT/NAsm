@@ -885,7 +885,7 @@ namespace ObjectWeb.Asm.Tree
         private sealed class _List_249 : IList<object>
         {
             private readonly MethodNode _enclosing;
-            private IList<object> _listImplementation;
+            private IList<object> _listImplementation = new List<object>();
 
             public _List_249(MethodNode _enclosing, int baseArg1)
             {

@@ -268,7 +268,6 @@ namespace ObjectWeb.Asm.Tree.Analysis
                     }
 
                     return false;
-                    goto default;
                 }
 
                 default:
