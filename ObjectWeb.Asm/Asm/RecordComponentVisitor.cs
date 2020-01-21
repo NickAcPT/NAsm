@@ -100,10 +100,10 @@ namespace ObjectWeb.Asm
         )
         {
             /*package-private*/
-            if (api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7 && api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm6 && api != VisitorAsmApiVersion
-                    .Asm5 && api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm4 && api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental)
+            if (api != VisitorAsmApiVersion.Asm7 && api != VisitorAsmApiVersion.Asm6 && api != VisitorAsmApiVersion
+                    .Asm5 && api != VisitorAsmApiVersion.Asm4 && api != VisitorAsmApiVersion.Asm8Experimental)
                 throw new ArgumentException("Unsupported api " + api);
-            if (api == ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental) Constants.CheckAsm8Experimental(this);
+            if (api == VisitorAsmApiVersion.Asm8Experimental) Constants.CheckAsm8Experimental(this);
             this.api = api;
             delegate_ = recordComponentVisitor;
         }

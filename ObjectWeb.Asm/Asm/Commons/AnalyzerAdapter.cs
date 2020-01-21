@@ -169,7 +169,7 @@ namespace ObjectWeb.Asm.Commons
         /// </exception>
         public AnalyzerAdapter(string owner, int access, string name, string descriptor,
             MethodVisitor methodVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, owner, access, name, descriptor, methodVisitor)
+            : this(VisitorAsmApiVersion.Asm7, owner, access, name, descriptor, methodVisitor)
         {
             /* latest api = */
             if (GetType() != typeof(AnalyzerAdapter)) throw new InvalidOperationException();

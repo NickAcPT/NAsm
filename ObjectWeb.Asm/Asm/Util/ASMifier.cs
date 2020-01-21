@@ -121,7 +121,7 @@ namespace ObjectWeb.Asm.Util
         ///     If a subclass calls this constructor.
         /// </exception>
         public ASMifier()
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, "classWriter", 0)
+            : this(VisitorAsmApiVersion.Asm7, "classWriter", 0)
         {
             /* latest api = */
             if (GetType() != typeof(ASMifier)) throw new InvalidOperationException();

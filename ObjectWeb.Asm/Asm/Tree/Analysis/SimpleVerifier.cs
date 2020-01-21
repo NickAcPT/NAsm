@@ -122,7 +122,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         /// <param name="isInterface">whether the class to be verifier is an interface.</param>
         public SimpleVerifier(Type currentClass, Type currentSuperClass, IList<Type> currentClassInterfaces
             , bool isInterface)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, currentClass, currentSuperClass, currentClassInterfaces
+            : this(VisitorAsmApiVersion.Asm7, currentClass, currentSuperClass, currentClassInterfaces
                 , isInterface)
         {
             /* latest api = */

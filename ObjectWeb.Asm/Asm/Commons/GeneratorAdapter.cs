@@ -281,7 +281,7 @@ namespace ObjectWeb.Asm.Commons
         /// </exception>
         public GeneratorAdapter(MethodVisitor methodVisitor, int access, string name, string
             descriptor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor)
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor)
         {
             /* latest api = */
             if (GetType() != typeof(GeneratorAdapter)) throw new InvalidOperationException();

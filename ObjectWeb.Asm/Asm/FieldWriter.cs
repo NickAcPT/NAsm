@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm
 {
     /// <summary>
@@ -165,7 +167,7 @@ namespace ObjectWeb.Asm
         /// </param>
         internal FieldWriter(SymbolTable symbolTable, int access, string name, string descriptor
             , string signature, object constantValue)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             // Note: fields are ordered as in the field_info structure, and those related to attributes are
             // ordered as in Section 4.7 of the JVMS.

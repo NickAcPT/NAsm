@@ -245,7 +245,7 @@ namespace ObjectWeb.Asm.Tree
         ///     If a subclass calls this constructor.
         /// </exception>
         public MethodNode()
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : this(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             if (GetType() != typeof(MethodNode)) throw new InvalidOperationException();
@@ -310,7 +310,7 @@ namespace ObjectWeb.Asm.Tree
         /// </exception>
         public MethodNode(int access, string name, string descriptor, string signature, string
             [] exceptions)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, exceptions)
+            : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, exceptions)
         {
             /* latest api = */
             if (GetType() != typeof(MethodNode)) throw new InvalidOperationException();
@@ -496,7 +496,7 @@ namespace ObjectWeb.Asm.Tree
         public override void VisitMethodInsn(int opcodeAndSource, string owner, string name
             , string descriptor, bool isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
+            if (api < VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
                 ) == 0)
             {
                 // Redirect the call to the deprecated version of this method.
@@ -696,7 +696,7 @@ namespace ObjectWeb.Asm.Tree
         /// </param>
         public virtual void Check(VisitorAsmApiVersion api)
         {
-            if (api == ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm4)
+            if (api == VisitorAsmApiVersion.Asm4)
             {
                 if (parameters != null && !(parameters.Count == 0)) throw new UnsupportedClassVersionException();
                 if (visibleTypeAnnotations != null && !(visibleTypeAnnotations.Count == 0))
@@ -743,7 +743,7 @@ namespace ObjectWeb.Asm.Tree
                     throw new UnsupportedClassVersionException();
             }
 
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            if (api < VisitorAsmApiVersion.Asm7)
                 for (var i = instructions.Size() - 1; i >= 0; --i)
                 {
                     var insn = instructions.Get(i);

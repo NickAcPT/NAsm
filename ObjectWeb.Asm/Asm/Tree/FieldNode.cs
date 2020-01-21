@@ -163,7 +163,7 @@ namespace ObjectWeb.Asm.Tree
         /// </exception>
         public FieldNode(int access, string name, string descriptor, string signature, object
             value)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, value)
+            : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, value)
         {
             /* latest api = */
             if (GetType() != typeof(FieldNode)) throw new InvalidOperationException();
@@ -281,7 +281,7 @@ namespace ObjectWeb.Asm.Tree
         /// </param>
         public virtual void Check(VisitorAsmApiVersion api)
         {
-            if (api == ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm4)
+            if (api == VisitorAsmApiVersion.Asm4)
             {
                 if (visibleTypeAnnotations != null && !(visibleTypeAnnotations.Count == 0))
                     throw new UnsupportedClassVersionException();

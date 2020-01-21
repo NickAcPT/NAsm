@@ -270,7 +270,7 @@ namespace ObjectWeb.Asm.Util
         /// </exception>
         public CheckMethodAdapter(MethodVisitor methodVisitor, IDictionary<Label, int> labelInsnIndices
         )
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor, labelInsnIndices)
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor, labelInsnIndices)
         {
             // NOP
             // ACONST_NULL
@@ -547,7 +547,7 @@ namespace ObjectWeb.Asm.Util
         /// </param>
         public CheckMethodAdapter(int access, string name, string descriptor, MethodVisitor
             methodVisitor, IDictionary<Label, int> labelInsnIndices)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, access, name, descriptor, methodVisitor, labelInsnIndices
+            : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, methodVisitor, labelInsnIndices
             )
         {
             /* latest api = */
@@ -829,7 +829,7 @@ namespace ObjectWeb.Asm.Util
         public override void VisitMethodInsn(int opcodeAndSource, string owner, string name
             , string descriptor, bool isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
+            if (api < VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
                 ) == 0)
             {
                 // Redirect the call to the deprecated version of this method.

@@ -153,7 +153,7 @@ namespace ObjectWeb.Asm.Util
         ///     If a subclass calls this constructor.
         /// </exception>
         public Textifier()
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : this(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             if (GetType() != typeof(Textifier)) throw new InvalidOperationException();

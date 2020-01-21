@@ -61,7 +61,7 @@ namespace ObjectWeb.Asm.Util
 	    ///     If a subclass calls this constructor.
 	    /// </exception>
 	    public CheckFieldAdapter(FieldVisitor fieldVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, fieldVisitor)
+            : this(VisitorAsmApiVersion.Asm7, fieldVisitor)
         {
             /* latest api = */
             if (GetType() != typeof(CheckFieldAdapter)) throw new InvalidOperationException();

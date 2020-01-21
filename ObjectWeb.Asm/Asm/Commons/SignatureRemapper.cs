@@ -62,7 +62,7 @@ namespace ObjectWeb.Asm.Commons
         ///     the remapper to use to remap the types in the visited signature.
         /// </param>
         public SignatureRemapper(SignatureVisitor signatureVisitor, Remapper remapper)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, signatureVisitor, remapper)
+            : this(VisitorAsmApiVersion.Asm7, signatureVisitor, remapper)
         {
         }
 

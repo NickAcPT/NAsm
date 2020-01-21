@@ -90,7 +90,7 @@ namespace ObjectWeb.Asm.Tree
         ///     If a subclass calls this constructor.
         /// </exception>
         public AnnotationNode(string descriptor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, descriptor)
+            : this(VisitorAsmApiVersion.Asm7, descriptor)
         {
             /* latest api = */
             if (GetType() != typeof(AnnotationNode)) throw new InvalidOperationException();
@@ -126,7 +126,7 @@ namespace ObjectWeb.Asm.Tree
         /// </summary>
         /// <param name="values">where the visited values must be stored.</param>
         internal AnnotationNode(IList<object> values)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             this.values = values;

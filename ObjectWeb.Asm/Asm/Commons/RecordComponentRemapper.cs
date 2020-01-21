@@ -64,7 +64,7 @@ namespace ObjectWeb.Asm.Commons
         /// </param>
         public RecordComponentRemapper(RecordComponentVisitor recordComponentVisitor, Remapper
             remapper)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, recordComponentVisitor, remapper)
+            : this(VisitorAsmApiVersion.Asm7, recordComponentVisitor, remapper)
         {
         }
 

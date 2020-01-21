@@ -180,7 +180,7 @@ namespace ObjectWeb.Asm.Commons
         ///     If a subclass calls this constructor.
         /// </exception>
         public SerialVersionUIDAdder(ClassVisitor classVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, classVisitor)
+            : this(VisitorAsmApiVersion.Asm7, classVisitor)
         {
             // DontCheck(AbbreviationAsWordInName): can't be renamed (for backward binary compatibility).
             /* latest api = */

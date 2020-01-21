@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm
 {
     internal sealed class RecordComponentWriter : RecordComponentVisitor
@@ -140,7 +142,7 @@ namespace ObjectWeb.Asm
         /// </param>
         internal RecordComponentWriter(SymbolTable symbolTable, int accessFlags, string name
             , string descriptor, string signature)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             // Note: fields are ordered as in the component_info structure, and those related to attributes
             // are ordered as in Section TODO of the JVMS.

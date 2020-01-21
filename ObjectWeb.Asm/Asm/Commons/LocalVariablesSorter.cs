@@ -103,7 +103,7 @@ namespace ObjectWeb.Asm.Commons
         /// </exception>
         public LocalVariablesSorter(int access, string descriptor, MethodVisitor methodVisitor
         )
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, access, descriptor, methodVisitor)
+            : this(VisitorAsmApiVersion.Asm7, access, descriptor, methodVisitor)
         {
             /* latest api = */
             if (GetType() != typeof(LocalVariablesSorter)) throw new InvalidOperationException();

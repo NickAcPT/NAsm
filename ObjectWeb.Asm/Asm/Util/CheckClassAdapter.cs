@@ -192,7 +192,7 @@ namespace ObjectWeb.Asm.Util
         ///     If a subclass calls this constructor.
         /// </exception>
         public CheckClassAdapter(ClassVisitor classVisitor, bool checkDataFlow)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, classVisitor, checkDataFlow)
+            : this(VisitorAsmApiVersion.Asm7, classVisitor, checkDataFlow)
         {
             // -----------------------------------------------------------------------------------------------
             // Constructors
@@ -969,7 +969,7 @@ namespace ObjectWeb.Asm.Util
             , TextWriter printWriter)
         {
             var classNode = new ClassNode();
-            classReader.Accept(new _CheckClassAdapter_1036(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental
+            classReader.Accept(new _CheckClassAdapter_1036(VisitorAsmApiVersion.Asm8Experimental
                 , classNode, false), ParsingOptions.SkipDebug);
             var syperType = classNode.superName == null
                 ? null

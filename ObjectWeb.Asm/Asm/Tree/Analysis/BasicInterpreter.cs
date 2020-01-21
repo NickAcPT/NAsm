@@ -65,7 +65,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         ///     version.
         /// </summary>
         public BasicInterpreter()
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             if (GetType() != typeof(BasicInterpreter)) throw new InvalidOperationException();

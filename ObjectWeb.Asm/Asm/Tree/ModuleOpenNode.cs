@@ -27,7 +27,6 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
-using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Tree
 {

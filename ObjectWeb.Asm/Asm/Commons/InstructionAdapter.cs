@@ -57,7 +57,7 @@ namespace ObjectWeb.Asm.Commons
         ///     If a subclass calls this constructor.
         /// </exception>
         public InstructionAdapter(MethodVisitor methodVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor)
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor)
         {
             /* latest api = */
             if (GetType() != typeof(InstructionAdapter)) throw new InvalidOperationException();
@@ -926,7 +926,7 @@ namespace ObjectWeb.Asm.Commons
         public override void VisitMethodInsn(int opcodeAndSource, string owner, string name
             , string descriptor, bool isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
+            if (api < VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
                 ) == 0)
             {
                 // Redirect the call to the deprecated version of this method.
@@ -1100,10 +1100,10 @@ namespace ObjectWeb.Asm.Commons
 
         public override void VisitLdcInsn(object value)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5 && (value is Handle || value is Type && ((Type) value
+            if (api < VisitorAsmApiVersion.Asm5 && (value is Handle || value is Type && ((Type) value
                                                 ).GetSort() == Type.Method))
                 throw new NotSupportedException("This feature requires ASM5");
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7 && value is ConstantDynamic)
+            if (api < VisitorAsmApiVersion.Asm7 && value is ConstantDynamic)
                 throw new NotSupportedException("This feature requires ASM7");
             if (value is int)
                 Iconst((int) value);
@@ -1645,7 +1645,7 @@ namespace ObjectWeb.Asm.Commons
         )]
         public virtual void Invokevirtual(string owner, string name, string descriptor)
         {
-            if (api >= ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api >= VisitorAsmApiVersion.Asm5)
             {
                 Invokevirtual(owner, name, descriptor, false);
                 return;
@@ -1670,7 +1670,7 @@ namespace ObjectWeb.Asm.Commons
         public virtual void Invokevirtual(string owner, string name, string descriptor, bool
             isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api < VisitorAsmApiVersion.Asm5)
             {
                 if (isInterface) throw new ArgumentException("INVOKEVIRTUAL on interfaces require ASM 5");
                 Invokevirtual(owner, name, descriptor);
@@ -1693,7 +1693,7 @@ namespace ObjectWeb.Asm.Commons
         )]
         public virtual void Invokespecial(string owner, string name, string descriptor)
         {
-            if (api >= ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api >= VisitorAsmApiVersion.Asm5)
             {
                 Invokespecial(owner, name, descriptor, false);
                 return;
@@ -1719,7 +1719,7 @@ namespace ObjectWeb.Asm.Commons
         public virtual void Invokespecial(string owner, string name, string descriptor, bool
             isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api < VisitorAsmApiVersion.Asm5)
             {
                 if (isInterface) throw new ArgumentException("INVOKESPECIAL on interfaces require ASM 5");
                 Invokespecial(owner, name, descriptor);
@@ -1742,7 +1742,7 @@ namespace ObjectWeb.Asm.Commons
         )]
         public virtual void Invokestatic(string owner, string name, string descriptor)
         {
-            if (api >= ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api >= VisitorAsmApiVersion.Asm5)
             {
                 Invokestatic(owner, name, descriptor, false);
                 return;
@@ -1767,7 +1767,7 @@ namespace ObjectWeb.Asm.Commons
         public virtual void Invokestatic(string owner, string name, string descriptor, bool
             isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api < VisitorAsmApiVersion.Asm5)
             {
                 if (isInterface) throw new ArgumentException("INVOKESTATIC on interfaces require ASM 5");
                 Invokestatic(owner, name, descriptor);

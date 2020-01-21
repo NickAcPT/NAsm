@@ -143,7 +143,7 @@ namespace ObjectWeb.Asm.Tree
         ///     If a subclass calls this constructor.
         /// </exception>
         public ModuleNode(string name, int access, string version)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             if (GetType() != typeof(ModuleNode)) throw new InvalidOperationException();

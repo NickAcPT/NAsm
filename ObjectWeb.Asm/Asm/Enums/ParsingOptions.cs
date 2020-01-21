@@ -9,7 +9,7 @@ namespace ObjectWeb.Asm.Enums
         ExpandFrames = ClassReader.Expand_Frames,
         SkipDebug = ClassReader.Skip_Debug,
         SkipFrames = ClassReader.Skip_Frames,
-        ExpandAsmInsns = ClassReader.Expand_Asm_Insns,
+        ExpandAsmInsns = ClassReader.Expand_Asm_Insns
     }
 
     public static class ParsingOptionsExtensions

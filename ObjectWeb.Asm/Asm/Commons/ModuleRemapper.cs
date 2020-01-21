@@ -56,7 +56,7 @@ namespace ObjectWeb.Asm.Commons
         ///     the remapper to use to remap the types in the visited module.
         /// </param>
         public ModuleRemapper(ModuleVisitor moduleVisitor, Remapper remapper)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, moduleVisitor, remapper)
+            : this(VisitorAsmApiVersion.Asm7, moduleVisitor, remapper)
         {
         }
 

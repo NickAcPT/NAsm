@@ -68,7 +68,7 @@ namespace ObjectWeb.Asm.Util
 	    ///     If a subclass calls this constructor.
 	    /// </exception>
 	    public CheckRecordComponentAdapter(RecordComponentVisitor recordComponentVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental, recordComponentVisitor)
+            : this(VisitorAsmApiVersion.Asm8Experimental, recordComponentVisitor)
         {
             // TODO: add 'latest api =' comment when no longer experimental.
             if (GetType() != typeof(CheckRecordComponentAdapter)) throw new InvalidOperationException();

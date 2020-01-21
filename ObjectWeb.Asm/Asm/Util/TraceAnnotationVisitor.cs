@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm.Util
 {
     /// <summary>
@@ -65,7 +67,7 @@ namespace ObjectWeb.Asm.Util
         /// <param name="printer">the printer to convert the visited annotation into text.</param>
         public TraceAnnotationVisitor(AnnotationVisitor annotationVisitor, Printer printer
         )
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, annotationVisitor)
+            : base(VisitorAsmApiVersion.Asm7, annotationVisitor)
         {
             /* latest api = */
             this.printer = printer;

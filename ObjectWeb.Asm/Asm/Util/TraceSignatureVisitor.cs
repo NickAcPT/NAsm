@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ObjectWeb.Asm.Enums;
 using ObjectWeb.Asm.Signature;
 
 namespace ObjectWeb.Asm.Util
@@ -142,7 +143,7 @@ namespace ObjectWeb.Asm.Util
         ///     for class type signatures, the access flags of the class.
         /// </param>
         public TraceSignatureVisitor(int accessFlags)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             isInterface = (accessFlags & OpcodesConstants.Acc_Interface) != 0;
@@ -150,7 +151,7 @@ namespace ObjectWeb.Asm.Util
         }
 
         private TraceSignatureVisitor(StringBuilder stringBuilder)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             isInterface = false;

@@ -86,7 +86,7 @@ namespace ObjectWeb.Asm.Commons
 	    /// </param>
 	    public TryCatchBlockSorter(MethodVisitor methodVisitor, int access, string name,
             string descriptor, string signature, string[] exceptions)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
                 exceptions)
         {
             /* latest api = */

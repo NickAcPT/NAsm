@@ -204,7 +204,7 @@ namespace ObjectWeb.Asm.Util
         ///     .
         /// </param>
         public CheckSignatureAdapter(int type, SignatureVisitor signatureVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, type, signatureVisitor)
+            : this(VisitorAsmApiVersion.Asm7, type, signatureVisitor)
         {
         }
 

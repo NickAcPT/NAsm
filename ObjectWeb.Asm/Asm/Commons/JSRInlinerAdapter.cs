@@ -101,7 +101,7 @@ namespace ObjectWeb.Asm.Commons
         /// </exception>
         public JSRInlinerAdapter(MethodVisitor methodVisitor, int access, string name, string
             descriptor, string signature, string[] exceptions)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
                 exceptions)
         {
             // DontCheck(AbbreviationAsWordInName): can't be renamed (for backward binary compatibility).

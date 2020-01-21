@@ -111,7 +111,7 @@ namespace ObjectWeb.Asm.Tree
 	    /// <param name="descriptor">the class descriptor of the annotation class.</param>
 	    public LocalVariableAnnotationNode(int typeRef, TypePath typePath, LabelNode[] start
             , LabelNode[] end, int[] index, string descriptor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, typeRef, typePath, start, end, index, descriptor)
+            : this(VisitorAsmApiVersion.Asm7, typeRef, typePath, start, end, index, descriptor)
         {
         }
 

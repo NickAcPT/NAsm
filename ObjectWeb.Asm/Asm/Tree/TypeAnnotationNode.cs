@@ -81,7 +81,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     If a subclass calls this constructor.
 	    /// </exception>
 	    public TypeAnnotationNode(int typeRef, TypePath typePath, string descriptor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, typeRef, typePath, descriptor)
+            : this(VisitorAsmApiVersion.Asm7, typeRef, typePath, descriptor)
         {
             /* latest api = */
             if (GetType() != typeof(TypeAnnotationNode)) throw new InvalidOperationException();

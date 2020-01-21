@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Text;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Signature
 {
@@ -80,7 +81,7 @@ namespace ObjectWeb.Asm.Signature
         ///     .
         /// </summary>
         public SignatureWriter()
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
         }
 

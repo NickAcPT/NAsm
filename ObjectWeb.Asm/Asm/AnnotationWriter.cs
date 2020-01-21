@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm
 {
     /// <summary>
@@ -141,7 +143,7 @@ namespace ObjectWeb.Asm
         /// </param>
         internal AnnotationWriter(SymbolTable symbolTable, bool useNamedValues, ByteVector
             annotation, AnnotationWriter previousAnnotation)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             // -----------------------------------------------------------------------------------------------
             // Constructors and factories

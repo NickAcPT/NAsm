@@ -143,7 +143,7 @@ namespace ObjectWeb.Asm.Tree
         // [Obsolete(@"this API is experimental.")]
         public RecordComponentNode(int access, string name, string descriptor, string signature
         )
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, access, name, descriptor, signature)
+            : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature)
         {
             /* latest api = */
             if (GetType() != typeof(RecordComponentNode)) throw new InvalidOperationException();
@@ -244,7 +244,7 @@ namespace ObjectWeb.Asm.Tree
         // [Obsolete(@"this API is experimental.")]
         public virtual void CheckExperimental(VisitorAsmApiVersion api)
         {
-            if (api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental) throw new UnsupportedClassVersionException();
+            if (api != VisitorAsmApiVersion.Asm8Experimental) throw new UnsupportedClassVersionException();
         }
 
         /// <summary>Makes the given class visitor visit this record component.</summary>

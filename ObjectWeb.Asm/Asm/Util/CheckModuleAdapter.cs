@@ -95,7 +95,7 @@ namespace ObjectWeb.Asm.Util
         ///     If a subclass calls this constructor.
         /// </exception>
         public CheckModuleAdapter(ModuleVisitor moduleVisitor, bool isOpen)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, moduleVisitor, isOpen)
+            : this(VisitorAsmApiVersion.Asm7, moduleVisitor, isOpen)
         {
             /* latest api = */
             if (GetType() != typeof(CheckModuleAdapter)) throw new InvalidOperationException();

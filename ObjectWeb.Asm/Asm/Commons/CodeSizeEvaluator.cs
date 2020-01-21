@@ -45,7 +45,7 @@ namespace ObjectWeb.Asm.Commons
         private int minSize;
 
         public CodeSizeEvaluator(MethodVisitor methodVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor)
+            : this(VisitorAsmApiVersion.Asm7, methodVisitor)
         {
         }
 
@@ -128,7 +128,7 @@ namespace ObjectWeb.Asm.Commons
         public override void VisitMethodInsn(int opcodeAndSource, string owner, string name
             , string descriptor, bool isInterface)
         {
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
+            if (api < VisitorAsmApiVersion.Asm5 && (opcodeAndSource & OpcodesConstants.Source_Deprecated
                 ) == 0)
             {
                 // Redirect the call to the deprecated version of this method.

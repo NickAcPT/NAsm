@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm
 {
@@ -591,7 +592,7 @@ namespace ObjectWeb.Asm
         /// <param name="compute">indicates what must be computed (see #compute).</param>
         internal MethodWriter(SymbolTable symbolTable, int access, string name, string descriptor
             , string signature, string[] exceptions, int compute)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             // nop = 0 (0x0)
             // aconst_null = 1 (0x1)

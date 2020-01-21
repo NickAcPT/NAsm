@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Util
 {
@@ -66,7 +67,7 @@ namespace ObjectWeb.Asm.Util
         /// </param>
         /// <param name="printer">the printer to convert the visited method into text.</param>
         public TraceMethodVisitor(MethodVisitor methodVisitor, Printer printer)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, methodVisitor)
+            : base(VisitorAsmApiVersion.Asm7, methodVisitor)
         {
             // DontCheck(MemberName): can't be renamed (for backward binary compatibility).
             /* latest api = */
@@ -173,7 +174,7 @@ namespace ObjectWeb.Asm.Util
             descriptor, bool isInterface)
         {
             // Call the method that p is supposed to implement, depending on its api version.
-            if (p.api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (p.api < VisitorAsmApiVersion.Asm5)
             {
                 if (isInterface != (opcode == OpcodesConstants.Invokeinterface))
                     throw new ArgumentException("INVOKESPECIAL/STATIC on interfaces require ASM5");

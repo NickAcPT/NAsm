@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Util
 {
@@ -59,7 +60,7 @@ namespace ObjectWeb.Asm.Util
 
         internal CheckAnnotationAdapter(AnnotationVisitor annotationVisitor, bool useNamedValues
         )
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, annotationVisitor)
+            : base(VisitorAsmApiVersion.Asm7, annotationVisitor)
         {
             /* latest api = */
             useNamedValue = useNamedValues;

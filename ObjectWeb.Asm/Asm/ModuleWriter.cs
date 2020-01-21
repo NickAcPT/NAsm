@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm
 {
     /// <summary>
@@ -116,7 +118,7 @@ namespace ObjectWeb.Asm
         private int usesCount;
 
         internal ModuleWriter(SymbolTable symbolTable, int name, int access, int version)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
             this.symbolTable = symbolTable;

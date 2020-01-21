@@ -237,7 +237,7 @@ namespace ObjectWeb.Asm.Tree
         ///     If a subclass calls this constructor.
         /// </exception>
         public ClassNode()
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7)
+            : this(VisitorAsmApiVersion.Asm7)
         {
             if (GetType() != typeof(ClassNode)) throw new InvalidOperationException();
         }
@@ -410,16 +410,16 @@ namespace ObjectWeb.Asm.Tree
         /// </param>
         public virtual void Check(VisitorAsmApiVersion api)
         {
-            if (api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental && permittedSubtypesExperimental !=
+            if (api != VisitorAsmApiVersion.Asm8Experimental && permittedSubtypesExperimental !=
                 null)
                 throw new UnsupportedClassVersionException();
-            if (api != ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental && recordComponentsExperimental !=
+            if (api != VisitorAsmApiVersion.Asm8Experimental && recordComponentsExperimental !=
                 null)
                 throw new UnsupportedClassVersionException();
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7 && (nestHostClass != null || nestMembers != null))
+            if (api < VisitorAsmApiVersion.Asm7 && (nestHostClass != null || nestMembers != null))
                 throw new UnsupportedClassVersionException();
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm6 && module != null) throw new UnsupportedClassVersionException();
-            if (api < ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm5)
+            if (api < VisitorAsmApiVersion.Asm6 && module != null) throw new UnsupportedClassVersionException();
+            if (api < VisitorAsmApiVersion.Asm5)
             {
                 if (visibleTypeAnnotations != null && !(visibleTypeAnnotations.Count == 0))
                     throw new UnsupportedClassVersionException();

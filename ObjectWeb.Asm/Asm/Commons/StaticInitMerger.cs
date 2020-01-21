@@ -68,7 +68,7 @@ namespace ObjectWeb.Asm.Commons
         ///     null.
         /// </param>
         public StaticInitMerger(string prefix, ClassVisitor classVisitor)
-            : this(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, prefix, classVisitor)
+            : this(VisitorAsmApiVersion.Asm7, prefix, classVisitor)
         {
         }
 

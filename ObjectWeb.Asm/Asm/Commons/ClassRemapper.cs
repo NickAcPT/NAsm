@@ -100,7 +100,7 @@ namespace ObjectWeb.Asm.Commons
         /// <param name="remapper">
         ///     the remapper to use to remap the types in the visited class.
         /// </param>
-        protected internal ClassRemapper(Enums.VisitorAsmApiVersion api, ClassVisitor classVisitor, Remapper remapper
+        protected internal ClassRemapper(VisitorAsmApiVersion api, ClassVisitor classVisitor, Remapper remapper
         )
             : base(api, classVisitor)
         {

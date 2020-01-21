@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm.Util
 {
     /// <summary>
@@ -64,7 +66,7 @@ namespace ObjectWeb.Asm.Util
         /// </param>
         /// <param name="printer">the printer to convert the visited field into text.</param>
         public TraceFieldVisitor(FieldVisitor fieldVisitor, Printer printer)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm7, fieldVisitor)
+            : base(VisitorAsmApiVersion.Asm7, fieldVisitor)
         {
             // DontCheck(MemberName): can't be renamed (for backward binary compatibility).
             /* latest api = */

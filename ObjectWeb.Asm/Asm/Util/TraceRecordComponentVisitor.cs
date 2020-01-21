@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Util
 {
@@ -75,7 +76,7 @@ namespace ObjectWeb.Asm.Util
         [Obsolete(@"This is an experimental API.")]
         public TraceRecordComponentVisitor(RecordComponentVisitor recordComponentVisitor,
             Printer printer)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental, recordComponentVisitor)
+            : base(VisitorAsmApiVersion.Asm8Experimental, recordComponentVisitor)
         {
             // TODO: add 'latest api =' comment when no longer experimental.
             printerExperimental = printer;

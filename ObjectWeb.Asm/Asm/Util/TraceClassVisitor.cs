@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.IO;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Util
 {
@@ -143,7 +144,7 @@ namespace ObjectWeb.Asm.Util
         /// </param>
         public TraceClassVisitor(ClassVisitor classVisitor, Printer printer, TextWriter
             printWriter)
-            : base(ObjectWeb.Asm.Enums.VisitorAsmApiVersion.Asm8Experimental, classVisitor)
+            : base(VisitorAsmApiVersion.Asm8Experimental, classVisitor)
         {
             // DontCheck(MemberName): can't be renamed (for backward binary compatibility).
             /* latest api = */
