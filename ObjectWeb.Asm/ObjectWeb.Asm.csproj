@@ -4,10 +4,10 @@
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <RootNamespace>ObjectWeb</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.3</PackageVersion>
+        <PackageVersion>1.0.4</PackageVersion>
         <Authors>NickAcPT; OW2 ASM Authors</Authors>
-        <AssemblyVersion>1.0.3</AssemblyVersion>
-        <FileVersion>1.0.3</FileVersion>
+        <AssemblyVersion>1.0.4</AssemblyVersion>
+        <FileVersion>1.0.4</FileVersion>
     </PropertyGroup>
 
 </Project>
