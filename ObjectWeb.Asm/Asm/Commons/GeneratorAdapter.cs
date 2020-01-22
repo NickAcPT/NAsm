@@ -239,7 +239,7 @@ namespace ObjectWeb.Asm.Commons
         );
 
         /// <summary>The access flags of the visited method.</summary>
-        private readonly ObjectWeb.Asm.Enums.AccessFlags access;
+        private readonly AccessFlags access;
 
         /// <summary>The argument types of the visited method.</summary>
         private readonly Type[] argumentTypes;
@@ -279,7 +279,7 @@ namespace ObjectWeb.Asm.Commons
         /// <exception cref="InvalidOperationException">
         ///     if a subclass calls this constructor.
         /// </exception>
-        public GeneratorAdapter(MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access, string name, string
+        public GeneratorAdapter(MethodVisitor methodVisitor, AccessFlags access, string name, string
             descriptor)
             : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor)
         {
@@ -317,7 +317,7 @@ namespace ObjectWeb.Asm.Commons
         ///     <see cref="Org.Objectweb.Asm.Type" />
         ///     ).
         /// </param>
-        protected internal GeneratorAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access
+        protected internal GeneratorAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, AccessFlags access
             , string name, string descriptor)
             : base(api, access, descriptor, methodVisitor)
         {
@@ -341,7 +341,7 @@ namespace ObjectWeb.Asm.Commons
         /// <param name="methodVisitor">
         ///     the method visitor to which this adapter delegates calls.
         /// </param>
-        public GeneratorAdapter(ObjectWeb.Asm.Enums.AccessFlags access, Method method, MethodVisitor methodVisitor)
+        public GeneratorAdapter(AccessFlags access, Method method, MethodVisitor methodVisitor)
             : this(methodVisitor, access, method.GetName(), method.GetDescriptor())
         {
         }
@@ -370,7 +370,7 @@ namespace ObjectWeb.Asm.Commons
         /// <param name="classVisitor">
         ///     the class visitor to which this adapter delegates calls.
         /// </param>
-        public GeneratorAdapter(ObjectWeb.Asm.Enums.AccessFlags access, Method method, string signature, Type[] exceptions
+        public GeneratorAdapter(AccessFlags access, Method method, string signature, Type[] exceptions
             , ClassVisitor classVisitor)
             : this(access, method, classVisitor.VisitMethod(access, method.GetName(), method.GetDescriptor(), signature,
                 exceptions == null
@@ -587,7 +587,7 @@ namespace ObjectWeb.Asm.Commons
         /// </returns>
         private int GetArgIndex(int arg)
         {
-            var index = access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static) ? 1 : 0;
+            var index = access.HasNotFlagFast(AccessFlags.Static) ? 1 : 0;
             for (var i = 0; i < arg; i++) index += argumentTypes[i].GetSize();
             return index;
         }
@@ -613,7 +613,7 @@ namespace ObjectWeb.Asm.Commons
         /// <summary>Generates the instruction to load 'this' on the stack.</summary>
         public virtual void LoadThis()
         {
-            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static))
+            if (access.HasFlagFast(AccessFlags.Static))
                 throw new InvalidOperationException("no 'this' pointer within static method");
             mv.VisitVarInsn(OpcodesConstants.Aload, 0);
         }
@@ -1639,7 +1639,7 @@ namespace ObjectWeb.Asm.Commons
         /// <summary>Marks the end of the visited method.</summary>
         public virtual void EndMethod()
         {
-            if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Abstract)) mv.VisitMaxs(0, 0);
+            if (access.HasNotFlagFast(AccessFlags.Abstract)) mv.VisitMaxs(0, 0);
             mv.VisitEnd();
         }
 

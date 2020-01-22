@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm.Tree
 {
 	/// <summary>A node that represents an inner class.</summary>
@@ -35,7 +37,7 @@ namespace ObjectWeb.Asm.Tree
 	    /// <summary>
 	    ///     The access flags of the inner class as originally declared in the enclosing class.
 	    /// </summary>
-	    public ObjectWeb.Asm.Enums.AccessFlags access;
+	    public AccessFlags access;
 
 	    /// <summary>The (simple) name of the inner class inside its enclosing class.</summary>
 	    /// <remarks>
@@ -88,7 +90,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     the access flags of the inner class as originally declared in the enclosing
 	    ///     class.
 	    /// </param>
-	    public InnerClassNode(string name, string outerName, string innerName, ObjectWeb.Asm.Enums.AccessFlags access
+	    public InnerClassNode(string name, string outerName, string innerName, AccessFlags access
         )
         {
             this.name = name;

@@ -448,7 +448,7 @@ namespace ObjectWeb.Asm
         /// </summary>
         /// <value>the class access flags.</value>
         /// <seealso cref="ClassVisitor.Visit(int, int, string, string, string, string[])" />
-        public virtual ObjectWeb.Asm.Enums.AccessFlags AccessFlags => Access;
+        public virtual AccessFlags AccessFlags => Access;
 
         /// <summary>
         ///     Returns the class's access flags (see
@@ -458,7 +458,7 @@ namespace ObjectWeb.Asm
         /// </summary>
         /// <value>the class access flags.</value>
         /// <seealso cref="ClassVisitor.Visit(int, int, string, string, string, string[])" />
-        public virtual ObjectWeb.Asm.Enums.AccessFlags Access
+        public virtual AccessFlags Access
         {
             get { return (AccessFlags) ReadUnsignedShort(header); }
         }
@@ -697,11 +697,11 @@ namespace ObjectWeb.Asm
                 }
                 else if (Deprecated.Equals(attributeName))
                 {
-                    accessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Deprecated;
+                    accessFlags |= AccessFlags.Deprecated;
                 }
                 else if (Synthetic.Equals(attributeName))
                 {
-                    accessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Synthetic;
+                    accessFlags |= AccessFlags.Synthetic;
                 }
                 else if (Source_Debug_Extension.Equals(attributeName))
                 {
@@ -1505,7 +1505,7 @@ namespace ObjectWeb.Asm
                 }
                 else if (Deprecated.Equals(attributeName))
                 {
-                    context.currentMethodAccessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Deprecated;
+                    context.currentMethodAccessFlags |= AccessFlags.Deprecated;
                 }
                 else if (Runtime_Visible_Annotations.Equals(attributeName))
                 {
@@ -1522,7 +1522,7 @@ namespace ObjectWeb.Asm
                 else if (Synthetic.Equals(attributeName))
                 {
                     synthetic = true;
-                    context.currentMethodAccessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Synthetic;
+                    context.currentMethodAccessFlags |= AccessFlags.Synthetic;
                 }
                 else if (Runtime_Invisible_Annotations.Equals(attributeName))
                 {

@@ -99,7 +99,7 @@ namespace ObjectWeb.Asm.Commons
         /// <exception cref="InvalidOperationException">
         ///     if a subclass calls this constructor.
         /// </exception>
-        public JSRInlinerAdapter(MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access, string name, string
+        public JSRInlinerAdapter(MethodVisitor methodVisitor, AccessFlags access, string name, string
             descriptor, string signature, string[] exceptions)
             : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
                 exceptions)
@@ -149,7 +149,7 @@ namespace ObjectWeb.Asm.Commons
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        protected internal JSRInlinerAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access
+        protected internal JSRInlinerAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, AccessFlags access
             , string name, string descriptor, string signature, string[] exceptions)
             : base(api, access, name, descriptor, signature, exceptions)
         {

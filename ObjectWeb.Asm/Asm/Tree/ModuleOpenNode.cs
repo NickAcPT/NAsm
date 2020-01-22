@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Tree
 {
@@ -43,7 +44,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public ObjectWeb.Asm.Enums.AccessFlags access;
+	    public AccessFlags access;
 
 	    /// <summary>
 	    ///     The fully qualified names (using dots) of the modules that can use deep reflection to the
@@ -75,7 +76,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public ModuleOpenNode(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, IList<string> modules)
+        public ModuleOpenNode(string packaze, AccessFlags access, IList<string> modules)
         {
             this.packaze = packaze;
             this.access = access;

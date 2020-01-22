@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm.Tree
 {
 	/// <summary>A node that represents a parameter of a method.</summary>
@@ -43,7 +45,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public ObjectWeb.Asm.Enums.AccessFlags access;
+	    public AccessFlags access;
 
         /// <summary>The parameter's name.</summary>
         public string name;
@@ -65,7 +67,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ).
         /// </param>
         /// <param name="name">the parameter's name.</param>
-        public ParameterNode(string name, ObjectWeb.Asm.Enums.AccessFlags access)
+        public ParameterNode(string name, AccessFlags access)
         {
             this.name = name;
             this.access = access;

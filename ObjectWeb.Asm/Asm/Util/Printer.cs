@@ -406,7 +406,7 @@ namespace ObjectWeb.Asm.Util
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public abstract void Visit(int version, ObjectWeb.Asm.Enums.AccessFlags access, string name, string signature
+        public abstract void Visit(int version, AccessFlags access, string name, string signature
             , string superName, string[] interfaces);
 
         /// <summary>Class source.</summary>
@@ -450,7 +450,7 @@ namespace ObjectWeb.Asm.Util
         ///     .
         /// </param>
         /// <returns>the printer.</returns>
-        public virtual Printer VisitModule(string name, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public virtual Printer VisitModule(string name, AccessFlags access, string version)
         {
             throw new NotSupportedException(Unsupported_Operation);
         }
@@ -620,7 +620,7 @@ namespace ObjectWeb.Asm.Util
         ///     class.
         /// </param>
         public abstract void VisitInnerClass(string name, string outerName, string innerName
-            , ObjectWeb.Asm.Enums.AccessFlags access);
+            , AccessFlags access);
 
         /// <summary>Visits a record component of the class.</summary>
         /// <remarks>
@@ -652,7 +652,7 @@ namespace ObjectWeb.Asm.Util
         ///     if this class visitor is not interested in visiting these annotations and attributes.
         /// </returns>
         //  [Obsolete(@"this API is experimental.")]
-        public virtual Printer VisitRecordComponentExperimental(ObjectWeb.Asm.Enums.AccessFlags access, string name,
+        public virtual Printer VisitRecordComponentExperimental(AccessFlags access, string name,
             string descriptor, string signature)
         {
             throw new NotSupportedException(Unsupported_Operation);
@@ -714,7 +714,7 @@ namespace ObjectWeb.Asm.Util
         ///     bytecode instructions in constructors or methods.
         /// </param>
         /// <returns>the printer.</returns>
-        public abstract Printer VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string
+        public abstract Printer VisitField(AccessFlags access, string name, string descriptor, string
             signature, object value);
 
         /// <summary>Class method.</summary>
@@ -750,7 +750,7 @@ namespace ObjectWeb.Asm.Util
         ///     .
         /// </param>
         /// <returns>the printer.</returns>
-        public abstract Printer VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string
+        public abstract Printer VisitMethod(AccessFlags access, string name, string descriptor, string
             signature, string[] exceptions);
 
         /// <summary>Class end.</summary>
@@ -813,7 +813,7 @@ namespace ObjectWeb.Asm.Util
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public virtual void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public virtual void VisitRequire(string module, AccessFlags access, string version)
         {
             throw new NotSupportedException(Unsupported_Operation);
         }
@@ -838,7 +838,7 @@ namespace ObjectWeb.Asm.Util
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public virtual void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public virtual void VisitExport(string packaze, AccessFlags access, params string[] modules
         )
         {
             throw new NotSupportedException(Unsupported_Operation);
@@ -864,7 +864,7 @@ namespace ObjectWeb.Asm.Util
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public virtual void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public virtual void VisitOpen(string packaze, AccessFlags access, params string[] modules
         )
         {
             throw new NotSupportedException(Unsupported_Operation);
@@ -1185,7 +1185,7 @@ namespace ObjectWeb.Asm.Util
         ///     <see cref="Asm.Opcodes" />
         ///     ).
         /// </param>
-        public virtual void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
+        public virtual void VisitParameter(string name, AccessFlags access)
         {
             throw new NotSupportedException(Unsupported_Operation);
         }

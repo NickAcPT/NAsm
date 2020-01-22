@@ -45,7 +45,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <c>ACC_MANDATED</c>
         ///     .
         /// </summary>
-        public ObjectWeb.Asm.Enums.AccessFlags access;
+        public AccessFlags access;
 
         /// <summary>The packages exported by this module.</summary>
         /// <remarks>
@@ -142,7 +142,7 @@ namespace ObjectWeb.Asm.Tree
         /// <exception cref="System.InvalidOperationException">
         ///     If a subclass calls this constructor.
         /// </exception>
-        public ModuleNode(string name, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public ModuleNode(string name, AccessFlags access, string version)
             : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
@@ -204,7 +204,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public ModuleNode(VisitorAsmApiVersion api, string name, ObjectWeb.Asm.Enums.AccessFlags access, string version, IList<ModuleRequireNode
+        public ModuleNode(VisitorAsmApiVersion api, string name, AccessFlags access, string version, IList<ModuleRequireNode
         > requires, IList<ModuleExportNode> exports, IList<ModuleOpenNode> opens, IList<
             string> uses, IList<ModuleProvideNode> provides)
             : base(api)
@@ -231,20 +231,20 @@ namespace ObjectWeb.Asm.Tree
             packages.Add(packaze);
         }
 
-        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public override void VisitRequire(string module, AccessFlags access, string version)
         {
             if (requires == null) requires = new List<ModuleRequireNode>(5);
             requires.Add(new ModuleRequireNode(module, access, version));
         }
 
-        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitExport(string packaze, AccessFlags access, params string[] modules
         )
         {
             if (exports == null) exports = new List<ModuleExportNode>(5);
             exports.Add(new ModuleExportNode(packaze, access, Util.AsArrayList(modules)));
         }
 
-        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitOpen(string packaze, AccessFlags access, params string[] modules
         )
         {
             if (opens == null) opens = new List<ModuleOpenNode>(5);

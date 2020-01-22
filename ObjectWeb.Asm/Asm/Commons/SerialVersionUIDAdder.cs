@@ -133,7 +133,7 @@ namespace ObjectWeb.Asm.Commons
         private const string Clinit = "<clinit>";
 
         /// <summary>The class access flags.</summary>
-        private ObjectWeb.Asm.Enums.AccessFlags access;
+        private AccessFlags access;
 
         /// <summary>A flag that indicates if we need to compute SVUID.</summary>
         private bool computeSvuid;
@@ -221,7 +221,7 @@ namespace ObjectWeb.Asm.Commons
         {
             // Get the class name, access flags, and interfaces information (step 1, 2 and 3) for SVUID
             // computation.
-            computeSvuid = access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Enum);
+            computeSvuid = access.HasNotFlagFast(AccessFlags.Enum);
             if (computeSvuid)
             {
                 this.name = name;
@@ -235,7 +235,7 @@ namespace ObjectWeb.Asm.Commons
             base.Visit(version, access, name, signature, superName, interfaces);
         }
 
-        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             // Get constructor and method information (step 5 and 7). Also determine if there is a class
@@ -246,12 +246,12 @@ namespace ObjectWeb.Asm.Commons
                 // Collect the non private constructors and methods. Only the ACC_PUBLIC, ACC_PRIVATE,
                 // ACC_PROTECTED, ACC_STATIC, ACC_FINAL, ACC_SYNCHRONIZED, ACC_NATIVE, ACC_ABSTRACT and
                 // ACC_STRICT flags are used.
-                var mods = access & (ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Private |
-                                     ObjectWeb.Asm.Enums.AccessFlags.Protected | ObjectWeb.Asm.Enums.AccessFlags.Static | ObjectWeb.Asm.Enums.AccessFlags
-                                         .Final | ObjectWeb.Asm.Enums.AccessFlags.Synchronized | ObjectWeb.Asm.Enums.AccessFlags.Native |
-                                     ObjectWeb.Asm.Enums.AccessFlags
-                                         .Abstract | ObjectWeb.Asm.Enums.AccessFlags.Strict);
-                if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Private))
+                var mods = access & (AccessFlags.Public | AccessFlags.Private |
+                                     AccessFlags.Protected | AccessFlags.Static | AccessFlags
+                                         .Final | AccessFlags.Synchronized | AccessFlags.Native |
+                                     AccessFlags
+                                         .Abstract | AccessFlags.Strict);
+                if (access.HasNotFlagFast(AccessFlags.Private))
                 {
                     if ("<init>".Equals(name))
                         svuidConstructors.Add(new Item(name, mods, descriptor));
@@ -262,7 +262,7 @@ namespace ObjectWeb.Asm.Commons
             return base.VisitMethod(access, name, descriptor, signature, exceptions);
         }
 
-        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string desc, string
+        public override FieldVisitor VisitField(AccessFlags access, string name, string desc, string
             signature, object value)
         {
             // Get the class field information for step 4 of the algorithm. Also determine if the class
@@ -279,13 +279,13 @@ namespace ObjectWeb.Asm.Commons
                 // Collect the non private fields. Only the ACC_PUBLIC, ACC_PRIVATE, ACC_PROTECTED,
                 // ACC_STATIC, ACC_FINAL, ACC_VOLATILE, and ACC_TRANSIENT flags are used when computing
                 // serialVersionUID values.
-                if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Private) || (access & (ObjectWeb.Asm.Enums.AccessFlags.Static
-                                                                               | ObjectWeb.Asm.Enums.AccessFlags.Transient)) == 0)
+                if (access.HasNotFlagFast(AccessFlags.Private) || (access & (AccessFlags.Static
+                                                                               | AccessFlags.Transient)) == 0)
                 {
-                    var mods = access & (ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Private |
-                                         ObjectWeb.Asm.Enums.AccessFlags.Protected | ObjectWeb.Asm.Enums.AccessFlags.Static | ObjectWeb.Asm.Enums.AccessFlags
-                                             .Final | ObjectWeb.Asm.Enums.AccessFlags.Volatile |
-                                         ObjectWeb.Asm.Enums.AccessFlags.Transient);
+                    var mods = access & (AccessFlags.Public | AccessFlags.Private |
+                                         AccessFlags.Protected | AccessFlags.Static | AccessFlags
+                                             .Final | AccessFlags.Volatile |
+                                         AccessFlags.Transient);
                     svuidFields.Add(new Item(name, mods, desc));
                 }
             }
@@ -342,7 +342,7 @@ namespace ObjectWeb.Asm.Commons
         protected internal virtual void AddSVUID(long svuid)
         {
             // DontCheck(AbbreviationAsWordInName): can't be renamed (for backward binary compatibility).
-            var fieldVisitor = base.VisitField(ObjectWeb.Asm.Enums.AccessFlags.Final + OpcodesConstants
+            var fieldVisitor = base.VisitField(AccessFlags.Final + OpcodesConstants
                                                    .Acc_Static, "serialVersionUID", "J", null, svuid);
             if (fieldVisitor != null) fieldVisitor.VisitEnd();
         }
@@ -363,13 +363,13 @@ namespace ObjectWeb.Asm.Commons
                     dataOutputStream.WriteUTF(name.Replace('/', '.'));
                     // 2. The class modifiers written as a 32-bit integer.
                     var mods = access;
-                    if (mods.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface))
+                    if (mods.HasFlagFast(AccessFlags.Interface))
                         mods = svuidMethods.Count == 0
-                            ? mods & ~ObjectWeb.Asm.Enums.AccessFlags.Abstract
+                            ? mods & ~AccessFlags.Abstract
                             : mods
-                              | ObjectWeb.Asm.Enums.AccessFlags.Abstract;
-                    dataOutputStream.WriteInt((int) (mods & (ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Final |
-                                                             ObjectWeb.Asm.Enums.AccessFlags.Interface | ObjectWeb.Asm.Enums.AccessFlags.Abstract)));
+                              | AccessFlags.Abstract;
+                    dataOutputStream.WriteInt((int) (mods & (AccessFlags.Public | AccessFlags.Final |
+                                                             AccessFlags.Interface | AccessFlags.Abstract)));
                     // 3. The name of each interface sorted by name written using UTF encoding.
                     Array.Sort(interfaces);
                     foreach (var interfaceName in interfaces)
@@ -389,7 +389,7 @@ namespace ObjectWeb.Asm.Commons
                     if (hasStaticInitializer)
                     {
                         dataOutputStream.WriteUTF(Clinit);
-                        dataOutputStream.WriteInt((int) ObjectWeb.Asm.Enums.AccessFlags.Static);
+                        dataOutputStream.WriteInt((int) AccessFlags.Static);
                         dataOutputStream.WriteUTF("()V");
                     }
 
@@ -455,12 +455,12 @@ namespace ObjectWeb.Asm.Commons
 
         private sealed class Item : IComparable<Item>
         {
-            internal readonly ObjectWeb.Asm.Enums.AccessFlags access;
+            internal readonly AccessFlags access;
 
             internal readonly string descriptor;
             internal readonly string name;
 
-            internal Item(string name, ObjectWeb.Asm.Enums.AccessFlags access, string descriptor)
+            internal Item(string name, AccessFlags access, string descriptor)
             {
                 // -----------------------------------------------------------------------------------------------
                 // Inner classes

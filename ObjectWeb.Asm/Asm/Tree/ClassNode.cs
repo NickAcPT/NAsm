@@ -42,7 +42,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ). This field also indicates if
         ///     the class is deprecated.
         /// </summary>
-        public ObjectWeb.Asm.Enums.AccessFlags access;
+        public AccessFlags access;
 
         /// <summary>The non standard attributes of this class.</summary>
         /// <remarks>
@@ -363,7 +363,7 @@ namespace ObjectWeb.Asm.Tree
             return recordComponent;
         }
 
-        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var field = new FieldNode(access, name, descriptor, signature, value);
@@ -371,7 +371,7 @@ namespace ObjectWeb.Asm.Tree
             return field;
         }
 
-        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             var method = new MethodNode(access, name, descriptor, signature, exceptions

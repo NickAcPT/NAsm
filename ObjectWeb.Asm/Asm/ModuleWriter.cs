@@ -117,7 +117,7 @@ namespace ObjectWeb.Asm
         /// <summary>The uses_count field of the JVMS Module attribute.</summary>
         private int usesCount;
 
-        internal ModuleWriter(SymbolTable symbolTable, int name, ObjectWeb.Asm.Enums.AccessFlags access, int version)
+        internal ModuleWriter(SymbolTable symbolTable, int name, AccessFlags access, int version)
             : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
@@ -144,14 +144,14 @@ namespace ObjectWeb.Asm
             packageCount++;
         }
 
-        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public override void VisitRequire(string module, AccessFlags access, string version)
         {
             requires.PutShort(symbolTable.AddConstantModule(module).index).PutShort((int) access).PutShort
                 (version == null ? 0 : symbolTable.AddConstantUtf8(version));
             requiresCount++;
         }
 
-        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitExport(string packaze, AccessFlags access, params string[] modules
         )
         {
             exports.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort((int) access);
@@ -168,7 +168,7 @@ namespace ObjectWeb.Asm
             exportsCount++;
         }
 
-        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitOpen(string packaze, AccessFlags access, params string[] modules
         )
         {
             opens.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort((int) access);

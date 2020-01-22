@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 
+using ObjectWeb.Asm.Enums;
+
 namespace ObjectWeb.Asm.Tree
 {
 	/// <summary>
@@ -45,7 +47,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public ObjectWeb.Asm.Enums.AccessFlags access;
+	    public AccessFlags access;
 
         /// <summary>The fully qualified name (using dots) of the dependence.</summary>
         public string module;
@@ -79,7 +81,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public ModuleRequireNode(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public ModuleRequireNode(string module, AccessFlags access, string version)
         {
             this.module = module;
             this.access = access;

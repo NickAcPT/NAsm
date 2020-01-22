@@ -149,20 +149,20 @@ namespace ObjectWeb.Asm.Util
             base.VisitPackage(packaze);
         }
 
-        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
+        public override void VisitRequire(string module, AccessFlags access, string version)
         {
             CheckVisitEndNotCalled();
             CheckClassAdapter.CheckFullyQualifiedName(OpcodesConstants.V9, module, "required module"
             );
             requiredModules.CheckNameNotAlreadyDeclared(module);
-            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.StaticPhase | ObjectWeb.Asm.Enums.AccessFlags
-                                                      .Transitive | ObjectWeb.Asm.Enums.AccessFlags.Synthetic |
-                                                  ObjectWeb.Asm.Enums.AccessFlags.Mandated
+            CheckClassAdapter.CheckAccess(access, AccessFlags.StaticPhase | AccessFlags
+                                                      .Transitive | AccessFlags.Synthetic |
+                                                  AccessFlags.Mandated
             );
             if (classVersion >= OpcodesConstants.V10 && module.Equals("java.base") && (access
-                                                                                       & (ObjectWeb.Asm.Enums.AccessFlags
+                                                                                       & (AccessFlags
                                                                                               .StaticPhase |
-                                                                                          ObjectWeb.Asm.Enums.AccessFlags
+                                                                                          AccessFlags
                                                                                               .Transitive)) != 0)
                 throw new ArgumentException(
                     "Invalid access flags: " + access +
@@ -171,14 +171,14 @@ namespace ObjectWeb.Asm.Util
             base.VisitRequire(module, access, version);
         }
 
-        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitExport(string packaze, AccessFlags access, params string[] modules
         )
         {
             CheckVisitEndNotCalled();
             CheckMethodAdapter.CheckInternalName(OpcodesConstants.V9, packaze, "package name"
             );
             exportedPackages.CheckNameNotAlreadyDeclared(packaze);
-            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Synthetic | ObjectWeb.Asm.Enums.AccessFlags
+            CheckClassAdapter.CheckAccess(access, AccessFlags.Synthetic | AccessFlags
                                                       .Mandated);
             if (modules != null)
                 foreach (var module in modules)
@@ -187,7 +187,7 @@ namespace ObjectWeb.Asm.Util
             base.VisitExport(packaze, access, modules);
         }
 
-        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
+        public override void VisitOpen(string packaze, AccessFlags access, params string[] modules
         )
         {
             CheckVisitEndNotCalled();
@@ -195,7 +195,7 @@ namespace ObjectWeb.Asm.Util
             CheckMethodAdapter.CheckInternalName(OpcodesConstants.V9, packaze, "package name"
             );
             openedPackages.CheckNameNotAlreadyDeclared(packaze);
-            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Synthetic | ObjectWeb.Asm.Enums.AccessFlags
+            CheckClassAdapter.CheckAccess(access, AccessFlags.Synthetic | AccessFlags
                                                       .Mandated);
             if (modules != null)
                 foreach (var module in modules)

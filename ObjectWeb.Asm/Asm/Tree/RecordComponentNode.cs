@@ -46,7 +46,7 @@ namespace ObjectWeb.Asm.Tree
         ///     .
         /// </summary>
         // [Obsolete(@"this API is experimental.")]
-        public ObjectWeb.Asm.Enums.AccessFlags accessExperimental;
+        public AccessFlags accessExperimental;
 
         /// <summary>The non standard attributes of this record component.</summary>
         /// <remarks>
@@ -141,7 +141,7 @@ namespace ObjectWeb.Asm.Tree
         ///     If a subclass calls this constructor.
         /// </exception>
         // [Obsolete(@"this API is experimental.")]
-        public RecordComponentNode(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string signature
+        public RecordComponentNode(AccessFlags access, string name, string descriptor, string signature
         )
             : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature)
         {
@@ -175,7 +175,7 @@ namespace ObjectWeb.Asm.Tree
         /// </param>
         /// <param name="signature">the record component signature.</param>
         // [Obsolete(@"this API is experimental.")]
-        public RecordComponentNode(VisitorAsmApiVersion api, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string
+        public RecordComponentNode(VisitorAsmApiVersion api, AccessFlags access, string name, string descriptor, string
             signature)
             : base(api)
         {

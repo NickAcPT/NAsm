@@ -101,7 +101,7 @@ namespace ObjectWeb.Asm.Commons
         /// <exception cref="System.InvalidOperationException">
         ///     if a subclass calls this constructor.
         /// </exception>
-        public LocalVariablesSorter(ObjectWeb.Asm.Enums.AccessFlags access, string descriptor, MethodVisitor methodVisitor
+        public LocalVariablesSorter(AccessFlags access, string descriptor, MethodVisitor methodVisitor
         )
             : this(VisitorAsmApiVersion.Asm7, access, descriptor, methodVisitor)
         {
@@ -134,11 +134,11 @@ namespace ObjectWeb.Asm.Commons
         /// <param name="methodVisitor">
         ///     the method visitor to which this adapter delegates calls.
         /// </param>
-        protected internal LocalVariablesSorter(VisitorAsmApiVersion api, ObjectWeb.Asm.Enums.AccessFlags access, string descriptor, MethodVisitor
+        protected internal LocalVariablesSorter(VisitorAsmApiVersion api, AccessFlags access, string descriptor, MethodVisitor
             methodVisitor)
             : base(api, methodVisitor)
         {
-            nextLocal = (ObjectWeb.Asm.Enums.AccessFlags.Static & access) == 0 ? 1 : 0;
+            nextLocal = (AccessFlags.Static & access) == 0 ? 1 : 0;
             foreach (var argumentType in Type.GetArgumentTypes(descriptor)) nextLocal += argumentType.GetSize();
             firstLocal = nextLocal;
         }

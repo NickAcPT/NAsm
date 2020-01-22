@@ -172,7 +172,7 @@ namespace ObjectWeb.Asm.Commons
                 );
         }
 
-        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var fieldVisitor = base.VisitField(access, remapper.MapFieldName(className
@@ -181,7 +181,7 @@ namespace ObjectWeb.Asm.Commons
             return fieldVisitor == null ? null : CreateFieldRemapper(fieldVisitor);
         }
 
-        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             var remappedDescriptor = remapper.MapMethodDesc(descriptor);

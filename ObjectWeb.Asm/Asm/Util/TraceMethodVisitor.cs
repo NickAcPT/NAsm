@@ -74,7 +74,7 @@ namespace ObjectWeb.Asm.Util
             p = printer;
         }
 
-        public override void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
+        public override void VisitParameter(string name, AccessFlags access)
         {
             p.VisitParameter(name, access);
             base.VisitParameter(name, access);

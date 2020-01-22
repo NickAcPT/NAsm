@@ -192,7 +192,7 @@ namespace ObjectWeb.Asm
         ///     <see cref="Opcodes" />
         ///     ).
         /// </param>
-        public virtual void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
+        public virtual void VisitParameter(string name, AccessFlags access)
         {
             if (api < VisitorAsmApiVersion.Asm5) throw new NotSupportedException(Requires_Asm5);
             if (mv != null) mv.VisitParameter(name, access);

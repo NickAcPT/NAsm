@@ -84,7 +84,7 @@ namespace ObjectWeb.Asm.Commons
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public TryCatchBlockSorter(MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access, string name,
+	    public TryCatchBlockSorter(MethodVisitor methodVisitor, AccessFlags access, string name,
             string descriptor, string signature, string[] exceptions)
             : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
                 exceptions)

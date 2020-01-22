@@ -247,12 +247,12 @@ namespace ObjectWeb.Asm.Util
             if (visitCalled) throw new InvalidOperationException("visit must be called only once");
             visitCalled = true;
             CheckState();
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Final | ObjectWeb.Asm.Enums.AccessFlags
-                                    .Super | ObjectWeb.Asm.Enums.AccessFlags.Interface | ObjectWeb.Asm.Enums.AccessFlags.Abstract |
-                                ObjectWeb.Asm.Enums.AccessFlags
-                                    .Synthetic | ObjectWeb.Asm.Enums.AccessFlags.Annotation | ObjectWeb.Asm.Enums.AccessFlags.Enum |
-                                ObjectWeb.Asm.Enums.AccessFlags
-                                    .Deprecated | ObjectWeb.Asm.Enums.AccessFlags.Module);
+            CheckAccess(access, AccessFlags.Public | AccessFlags.Final | AccessFlags
+                                    .Super | AccessFlags.Interface | AccessFlags.Abstract |
+                                AccessFlags
+                                    .Synthetic | AccessFlags.Annotation | AccessFlags.Enum |
+                                AccessFlags
+                                    .Deprecated | AccessFlags.Module);
             if (name == null) throw new ArgumentException("Illegal class name (null)");
             if (!name.EndsWith("package-info") && !name.EndsWith("module-info"))
                 CheckMethodAdapter.CheckInternalName(version, name, "class name");
@@ -274,7 +274,7 @@ namespace ObjectWeb.Asm.Util
             }
 
             if (signature != null) CheckClassSignature(signature);
-            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface) && !"java/lang/Object".Equals(
+            if (access.HasFlagFast(AccessFlags.Interface) && !"java/lang/Object".Equals(
                     superName))
                 throw new ArgumentException("The super class name of interfaces must be 'java/lang/Object'"
                 );
@@ -300,10 +300,10 @@ namespace ObjectWeb.Asm.Util
             if (visitModuleCalled) throw new InvalidOperationException("visitModule can be called only once.");
             visitModuleCalled = true;
             CheckFullyQualifiedName(this.version, name, "module name");
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Open | ObjectWeb.Asm.Enums.AccessFlags.Synthetic |
-                                ObjectWeb.Asm.Enums.AccessFlags.Mandated);
+            CheckAccess(access, AccessFlags.Open | AccessFlags.Synthetic |
+                                AccessFlags.Mandated);
             var checkModuleAdapter = new CheckModuleAdapter(api, base.VisitModule
-                    (name, access, version), access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Open));
+                    (name, access, version), access.HasFlagFast(AccessFlags.Open));
             checkModuleAdapter.classVersion = this.version;
             return checkModuleAdapter;
         }
@@ -370,11 +370,11 @@ namespace ObjectWeb.Asm.Util
                     );
             }
 
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Private |
-                                ObjectWeb.Asm.Enums.AccessFlags.Protected | ObjectWeb.Asm.Enums.AccessFlags.Static |
-                                ObjectWeb.Asm.Enums.AccessFlags.Final | ObjectWeb.Asm.Enums.AccessFlags.Interface |
-                                ObjectWeb.Asm.Enums.AccessFlags.Abstract | ObjectWeb.Asm.Enums.AccessFlags
-                                    .Synthetic | ObjectWeb.Asm.Enums.AccessFlags.Annotation | ObjectWeb.Asm.Enums.AccessFlags.Enum);
+            CheckAccess(access, AccessFlags.Public | AccessFlags.Private |
+                                AccessFlags.Protected | AccessFlags.Static |
+                                AccessFlags.Final | AccessFlags.Interface |
+                                AccessFlags.Abstract | AccessFlags
+                                    .Synthetic | AccessFlags.Annotation | AccessFlags.Enum);
             base.VisitInnerClass(name, outerName, innerName, access);
         }
 
@@ -382,7 +382,7 @@ namespace ObjectWeb.Asm.Util
             , string name, string descriptor, string signature)
         {
             CheckState();
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Deprecated);
+            CheckAccess(access, AccessFlags.Deprecated);
             CheckMethodAdapter.CheckUnqualifiedName(version, name, "record component name");
             CheckMethodAdapter.CheckDescriptor(version, descriptor, false);
             /* canBeVoid = */
@@ -391,16 +391,16 @@ namespace ObjectWeb.Asm.Util
                 (access, name, descriptor, signature));
         }
 
-        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             CheckState();
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Private |
-                                ObjectWeb.Asm.Enums.AccessFlags.Protected | ObjectWeb.Asm.Enums.AccessFlags.Static |
-                                ObjectWeb.Asm.Enums.AccessFlags.Final | ObjectWeb.Asm.Enums.AccessFlags.Volatile |
-                                ObjectWeb.Asm.Enums.AccessFlags.Transient | ObjectWeb.Asm.Enums.AccessFlags
-                                    .Synthetic | ObjectWeb.Asm.Enums.AccessFlags.Enum | ObjectWeb.Asm.Enums.AccessFlags.Mandated |
-                                ObjectWeb.Asm.Enums.AccessFlags
+            CheckAccess(access, AccessFlags.Public | AccessFlags.Private |
+                                AccessFlags.Protected | AccessFlags.Static |
+                                AccessFlags.Final | AccessFlags.Volatile |
+                                AccessFlags.Transient | AccessFlags
+                                    .Synthetic | AccessFlags.Enum | AccessFlags.Mandated |
+                                AccessFlags
                                     .Deprecated);
             CheckMethodAdapter.CheckUnqualifiedName(version, name, "field name");
             CheckMethodAdapter.CheckDescriptor(version, descriptor, false);
@@ -411,18 +411,18 @@ namespace ObjectWeb.Asm.Util
                 , value));
         }
 
-        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             CheckState();
-            CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Private |
-                                ObjectWeb.Asm.Enums.AccessFlags.Protected | ObjectWeb.Asm.Enums.AccessFlags.Static |
-                                ObjectWeb.Asm.Enums.AccessFlags.Final | ObjectWeb.Asm.Enums.AccessFlags.Synchronized |
-                                ObjectWeb.Asm.Enums.AccessFlags.Bridge | ObjectWeb.Asm.Enums.AccessFlags
-                                    .Varargs | ObjectWeb.Asm.Enums.AccessFlags.Native | ObjectWeb.Asm.Enums.AccessFlags.Abstract |
-                                ObjectWeb.Asm.Enums.AccessFlags
-                                    .Strict | ObjectWeb.Asm.Enums.AccessFlags.Synthetic | ObjectWeb.Asm.Enums.AccessFlags.Mandated |
-                                ObjectWeb.Asm.Enums.AccessFlags
+            CheckAccess(access, AccessFlags.Public | AccessFlags.Private |
+                                AccessFlags.Protected | AccessFlags.Static |
+                                AccessFlags.Final | AccessFlags.Synchronized |
+                                AccessFlags.Bridge | AccessFlags
+                                    .Varargs | AccessFlags.Native | AccessFlags.Abstract |
+                                AccessFlags
+                                    .Strict | AccessFlags.Synthetic | AccessFlags.Mandated |
+                                AccessFlags
                                     .Deprecated);
             if (!"<init>".Equals(name) && !"<clinit>".Equals(name))
                 CheckMethodAdapter.CheckMethodIdentifier(version, name, "method name");
@@ -502,15 +502,15 @@ namespace ObjectWeb.Asm.Util
         /// </remarks>
         /// <param name="access">the access flags to be checked.</param>
         /// <param name="possibleAccess">the valid access flags.</param>
-        internal static void CheckAccess(ObjectWeb.Asm.Enums.AccessFlags access, AccessFlags possibleAccess)
+        internal static void CheckAccess(AccessFlags access, AccessFlags possibleAccess)
         {
             if ((access & ~possibleAccess) != 0) throw new ArgumentException("Invalid access flags: " + access);
-            var publicProtectedPrivate = ObjectWeb.Asm.Enums.AccessFlags.Public | ObjectWeb.Asm.Enums.AccessFlags.Protected
-                                                                     | ObjectWeb.Asm.Enums.AccessFlags.Private;
+            var publicProtectedPrivate = AccessFlags.Public | AccessFlags.Protected
+                                                                     | AccessFlags.Private;
             if (Runtime.BitCount((long) (access & publicProtectedPrivate)) > 1)
                 throw new ArgumentException("public, protected and private are mutually exclusive: "
                                             + access);
-            if (Runtime.BitCount((long) (access & (ObjectWeb.Asm.Enums.AccessFlags.Final | ObjectWeb.Asm.Enums.AccessFlags.Abstract
+            if (Runtime.BitCount((long) (access & (AccessFlags.Final | AccessFlags.Abstract
                                          ))) > 1)
                 throw new ArgumentException("final and abstract are mutually exclusive: " + access
                 );
@@ -980,7 +980,7 @@ namespace ObjectWeb.Asm.Util
             foreach (var method in methods)
             {
                 var verifier = new SimpleVerifier(Type.GetObjectType(classNode.name),
-                    syperType, interfaces, classNode.access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface));
+                    syperType, interfaces, classNode.access.HasFlagFast(AccessFlags.Interface));
                 var analyzer = new Analyzer<BasicValue>(verifier);
                 if (loader != null) verifier.SetClassLoader(loader);
                 try

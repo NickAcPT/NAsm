@@ -236,7 +236,7 @@ namespace ObjectWeb.Asm.Util
                 , name, descriptor, signature), recordComponentPrinter);
         }
 
-        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var fieldPrinter = p.VisitField(access, name, descriptor, signature, value);
@@ -244,7 +244,7 @@ namespace ObjectWeb.Asm.Util
                 value), fieldPrinter);
         }
 
-        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public override MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             var methodPrinter = p.VisitMethod(access, name, descriptor, signature, exceptions

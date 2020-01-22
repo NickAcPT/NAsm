@@ -489,7 +489,7 @@ namespace ObjectWeb.Asm
 	    ///     if this class
 	    ///     visitor is not interested in visiting these annotations and attributes.
 	    /// </returns>
-	    public virtual FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+	    public virtual FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             if (cv != null) return cv.VisitField(access, name, descriptor, signature, value);
@@ -536,7 +536,7 @@ namespace ObjectWeb.Asm
 	    ///     if this class
 	    ///     visitor is not interested in visiting the code of this method.
 	    /// </returns>
-	    public virtual MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+	    public virtual MethodVisitor VisitMethod(AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             if (cv != null) return cv.VisitMethod(access, name, descriptor, signature, exceptions);

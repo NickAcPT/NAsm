@@ -109,7 +109,7 @@ namespace ObjectWeb.Asm
         ///     , which are removed when generating the
         ///     ClassFile structure.
         /// </remarks>
-        private ObjectWeb.Asm.Enums.AccessFlags accessFlags;
+        private AccessFlags accessFlags;
 
         /// <summary>
         ///     Indicates what must be automatically computed in
@@ -545,7 +545,7 @@ namespace ObjectWeb.Asm
             return lastRecordComponent = recordComponentWriter;
         }
 
-        public sealed override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        public sealed override FieldVisitor VisitField(AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var fieldWriter = new FieldWriter(symbolTable, access, name, descriptor,
@@ -557,7 +557,7 @@ namespace ObjectWeb.Asm
             return lastField = fieldWriter;
         }
 
-        public sealed override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string
+        public sealed override MethodVisitor VisitMethod(AccessFlags access, string name, string
             descriptor, string signature, string[] exceptions)
         {
             var methodWriter = new MethodWriter(symbolTable, access, name, descriptor
@@ -630,7 +630,7 @@ namespace ObjectWeb.Asm
                 symbolTable.AddConstantUtf8(Constants.Enclosing_Method);
             }
 
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
+            if (accessFlags.HasFlagFast(AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
             {
                 ++attributesCount;
                 size += 6;
@@ -658,7 +658,7 @@ namespace ObjectWeb.Asm
                 symbolTable.AddConstantUtf8(Constants.Source_Debug_Extension);
             }
 
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
+            if (accessFlags.HasFlagFast(AccessFlags.Deprecated))
             {
                 ++attributesCount;
                 size += 6;
@@ -763,7 +763,7 @@ namespace ObjectWeb.Asm
             result.PutInt(unchecked((int) 0xCAFEBABE)).PutInt(version);
             symbolTable.PutConstantPool(result);
             var mask = (version & 0xFFFF) < OpcodesConstants.V1_5
-                ? ObjectWeb.Asm.Enums.AccessFlags.Synthetic
+                ? AccessFlags.Synthetic
                 : AccessFlags.None;
             result.PutShort((int) (accessFlags & ~mask)).PutShort(thisClass).PutShort(superClass);
             result.PutShort(interfaceCount);
@@ -798,7 +798,7 @@ namespace ObjectWeb.Asm
             if (enclosingClassIndex != 0)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Enclosing_Method)).PutInt(4
                 ).PutShort(enclosingClassIndex).PutShort(enclosingMethodIndex);
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
+            if (accessFlags.HasFlagFast(AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Synthetic)).PutInt(0);
             if (signatureIndex != 0)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Signature)).PutInt(2).PutShort
@@ -813,7 +813,7 @@ namespace ObjectWeb.Asm
                     (length).PutByteArray(debugExtension.data, 0, length);
             }
 
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
+            if (accessFlags.HasFlagFast(AccessFlags.Deprecated))
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Deprecated)).PutInt(0);
             AnnotationWriter.PutAnnotations(symbolTable, lastRuntimeVisibleAnnotation, lastRuntimeInvisibleAnnotation
                 , lastRuntimeVisibleTypeAnnotation, lastRuntimeInvisibleTypeAnnotation, result);

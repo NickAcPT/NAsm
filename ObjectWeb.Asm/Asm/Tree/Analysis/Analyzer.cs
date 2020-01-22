@@ -118,7 +118,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         /// <exception cref="AnalyzerException" />
         public virtual Frame<V>[] Analyze(string owner, MethodNode method)
         {
-            if ((method.access & (ObjectWeb.Asm.Enums.AccessFlags.Abstract | ObjectWeb.Asm.Enums.AccessFlags.Native
+            if ((method.access & (AccessFlags.Abstract | AccessFlags.Native
                  )) != 0)
             {
                 frames = new Frame<V>[0];
@@ -446,7 +446,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         {
             var frame = NewFrame(method.maxLocals, method.maxStack);
             var currentLocal = 0;
-            var isInstanceMethod = method.access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static);
+            var isInstanceMethod = method.access.HasNotFlagFast(AccessFlags.Static);
             if (isInstanceMethod)
             {
                 var ownerType = Type.GetObjectType(owner);

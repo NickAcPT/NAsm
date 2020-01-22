@@ -598,13 +598,13 @@ namespace ObjectWeb.Asm
         /// <param name="access">the method's access flags.</param>
         /// <param name="descriptor">the method descriptor.</param>
         /// <param name="maxLocals">the maximum number of local variables of the method.</param>
-        internal void SetInputFrameFromDescriptor(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags access, string
+        internal void SetInputFrameFromDescriptor(SymbolTable symbolTable, AccessFlags access, string
             descriptor, int maxLocals)
         {
             inputLocals = new int[maxLocals];
             inputStack = new int[0];
             var inputLocalIndex = 0;
-            if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static))
+            if (access.HasNotFlagFast(AccessFlags.Static))
             {
                 if (access.HasNotFlagFast(AccessFlags.Abstract))
                     inputLocals[inputLocalIndex++] = Reference_Kind | symbolTable.AddType(symbolTable

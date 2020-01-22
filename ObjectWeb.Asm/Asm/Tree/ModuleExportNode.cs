@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Tree
 {
@@ -45,7 +46,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public ObjectWeb.Asm.Enums.AccessFlags access;
+	    public AccessFlags access;
 
 	    /// <summary>
 	    ///     The list of modules that can access this exported package, specified with fully qualified names
@@ -79,7 +80,7 @@ namespace ObjectWeb.Asm.Tree
         ///     a list of modules that can access this exported package, specified with fully
         ///     qualified names (using dots).
         /// </param>
-        public ModuleExportNode(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, IList<string> modules)
+        public ModuleExportNode(string packaze, AccessFlags access, IList<string> modules)
         {
             this.packaze = packaze;
             this.access = access;

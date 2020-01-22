@@ -143,7 +143,7 @@ namespace ObjectWeb.Asm.Commons
         ///     <see cref="Org.Objectweb.Asm.Type">Type</see>
         ///     ).
         /// </param>
-        protected internal AdviceAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access
+        protected internal AdviceAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, AccessFlags access
             , string name, string descriptor)
             : base(api, methodVisitor, access, name, descriptor)
         {

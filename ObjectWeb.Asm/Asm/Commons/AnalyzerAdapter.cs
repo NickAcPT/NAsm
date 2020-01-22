@@ -167,7 +167,7 @@ namespace ObjectWeb.Asm.Commons
         /// <exception cref="InvalidOperationException">
         ///     If a subclass calls this constructor.
         /// </exception>
-        public AnalyzerAdapter(string owner, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor,
+        public AnalyzerAdapter(string owner, AccessFlags access, string name, string descriptor,
             MethodVisitor methodVisitor)
             : this(VisitorAsmApiVersion.Asm7, owner, access, name, descriptor, methodVisitor)
         {
@@ -208,7 +208,7 @@ namespace ObjectWeb.Asm.Commons
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        protected internal AnalyzerAdapter(VisitorAsmApiVersion api, string owner, ObjectWeb.Asm.Enums.AccessFlags access, string name
+        protected internal AnalyzerAdapter(VisitorAsmApiVersion api, string owner, AccessFlags access, string name
             , string descriptor, MethodVisitor methodVisitor)
             : base(api, methodVisitor)
         {
@@ -216,7 +216,7 @@ namespace ObjectWeb.Asm.Commons
             locals = new List<object>();
             stack = new List<object>();
             uninitializedTypes = new Dictionary<object, object>();
-            if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static))
+            if (access.HasNotFlagFast(AccessFlags.Static))
             {
                 if ("<init>".Equals(name))
                     locals.Add(OpcodesConstants.Uninitialized_This);

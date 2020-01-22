@@ -53,7 +53,7 @@ namespace ObjectWeb.Asm
         ///     , which are removed when generating the
         ///     ClassFile structure.
         /// </remarks>
-        private readonly ObjectWeb.Asm.Enums.AccessFlags accessFlags;
+        private readonly AccessFlags accessFlags;
 
         /// <summary>
         ///     The constantvalue_index field of the ConstantValue attribute of this field_info, or 0 if there
@@ -165,7 +165,7 @@ namespace ObjectWeb.Asm
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        internal FieldWriter(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
+        internal FieldWriter(SymbolTable symbolTable, AccessFlags access, string name, string descriptor
             , string signature, object constantValue)
             : base(VisitorAsmApiVersion.Asm7)
         {
@@ -257,16 +257,16 @@ namespace ObjectWeb.Asm
         {
             var useSyntheticAttribute = symbolTable.GetMajorVersion() < OpcodesConstants.V1_5;
             // Put the access_flags, name_index and descriptor_index fields.
-            var mask = useSyntheticAttribute ? ObjectWeb.Asm.Enums.AccessFlags.Synthetic : 0;
+            var mask = useSyntheticAttribute ? AccessFlags.Synthetic : 0;
             output.PutShort((int) (accessFlags & ~mask)).PutShort(nameIndex).PutShort(descriptorIndex
             );
             // Compute and put the attributes_count field.
             // For ease of reference, we use here the same attribute order as in Section 4.7 of the JVMS.
             var attributesCount = 0;
             if (constantValueIndex != 0) ++attributesCount;
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && useSyntheticAttribute) ++attributesCount;
+            if (accessFlags.HasFlagFast(AccessFlags.Synthetic) && useSyntheticAttribute) ++attributesCount;
             if (signatureIndex != 0) ++attributesCount;
-            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) ++attributesCount;
+            if (accessFlags.HasFlagFast(AccessFlags.Deprecated)) ++attributesCount;
             if (lastRuntimeVisibleAnnotation != null) ++attributesCount;
             if (lastRuntimeInvisibleAnnotation != null) ++attributesCount;
             if (lastRuntimeVisibleTypeAnnotation != null) ++attributesCount;
