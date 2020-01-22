@@ -28,6 +28,7 @@
 
 using System;
 using System.Text;
+using ObjectWeb.Asm.Enums;
 using ObjectWeb.Misc.Java.Lang;
 
 namespace ObjectWeb.Asm
@@ -408,7 +409,7 @@ namespace ObjectWeb.Asm
         ///     ,
         ///     <see cref="Opcodes.Long" />
         ///     ,
-        ///     <see cref="Opcodes.Double" />
+        ///     <see cref="double" />
         ///     ,
         ///     <see cref="Opcodes.Null" />
         ///     , or
@@ -597,15 +598,15 @@ namespace ObjectWeb.Asm
         /// <param name="access">the method's access flags.</param>
         /// <param name="descriptor">the method descriptor.</param>
         /// <param name="maxLocals">the maximum number of local variables of the method.</param>
-        internal void SetInputFrameFromDescriptor(SymbolTable symbolTable, int access, string
+        internal void SetInputFrameFromDescriptor(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags access, string
             descriptor, int maxLocals)
         {
             inputLocals = new int[maxLocals];
             inputStack = new int[0];
             var inputLocalIndex = 0;
-            if ((access & OpcodesConstants.Acc_Static) == 0)
+            if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static))
             {
-                if ((access & Constants.Acc_Constructor) == 0)
+                if (access.HasNotFlagFast(AccessFlags.Abstract))
                     inputLocals[inputLocalIndex++] = Reference_Kind | symbolTable.AddType(symbolTable
                                                          .GetClassName());
                 else

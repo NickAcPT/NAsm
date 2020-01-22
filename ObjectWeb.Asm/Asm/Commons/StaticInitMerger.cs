@@ -101,20 +101,20 @@ namespace ObjectWeb.Asm.Commons
             renamedClinitMethodPrefix = prefix;
         }
 
-        public override void Visit(int version, int access, string name, string signature
+        public override void Visit(int version, ObjectWeb.Asm.Enums.AccessFlags access, string name, string signature
             , string superName, string[] interfaces)
         {
             base.Visit(version, access, name, signature, superName, interfaces);
             owner = name;
         }
 
-        public override MethodVisitor VisitMethod(int access, string name, string descriptor
+        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             MethodVisitor methodVisitor;
             if ("<clinit>".Equals(name))
             {
-                var newAccess = OpcodesConstants.Acc_Private + OpcodesConstants.Acc_Static;
+                var newAccess = ObjectWeb.Asm.Enums.AccessFlags.Private + (int) ObjectWeb.Asm.Enums.AccessFlags.Static;
                 var newName = renamedClinitMethodPrefix + numClinitMethods++;
                 methodVisitor = base.VisitMethod(newAccess, newName, descriptor, signature, exceptions
                 );

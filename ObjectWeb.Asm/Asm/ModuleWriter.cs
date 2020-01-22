@@ -62,7 +62,7 @@ namespace ObjectWeb.Asm
         private readonly ByteVector exports;
 
         /// <summary>The module_flags field of the JVMS Module attribute.</summary>
-        private readonly int moduleFlags;
+        private readonly AccessFlags moduleFlags;
 
         /// <summary>The module_name_index field of the JVMS Module attribute.</summary>
         private readonly int moduleNameIndex;
@@ -117,7 +117,7 @@ namespace ObjectWeb.Asm
         /// <summary>The uses_count field of the JVMS Module attribute.</summary>
         private int usesCount;
 
-        internal ModuleWriter(SymbolTable symbolTable, int name, int access, int version)
+        internal ModuleWriter(SymbolTable symbolTable, int name, ObjectWeb.Asm.Enums.AccessFlags access, int version)
             : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
@@ -144,17 +144,17 @@ namespace ObjectWeb.Asm
             packageCount++;
         }
 
-        public override void VisitRequire(string module, int access, string version)
+        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
-            requires.PutShort(symbolTable.AddConstantModule(module).index).PutShort(access).PutShort
+            requires.PutShort(symbolTable.AddConstantModule(module).index).PutShort((int) access).PutShort
                 (version == null ? 0 : symbolTable.AddConstantUtf8(version));
             requiresCount++;
         }
 
-        public override void VisitExport(string packaze, int access, params string[] modules
+        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
-            exports.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort(access);
+            exports.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort((int) access);
             if (modules == null)
             {
                 exports.PutShort(0);
@@ -168,10 +168,10 @@ namespace ObjectWeb.Asm
             exportsCount++;
         }
 
-        public override void VisitOpen(string packaze, int access, params string[] modules
+        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
-            opens.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort(access);
+            opens.PutShort(symbolTable.AddConstantPackage(packaze).index).PutShort((int) access);
             if (modules == null)
             {
                 opens.PutShort(0);
@@ -261,7 +261,7 @@ namespace ObjectWeb.Asm
             var moduleAttributeLength = 16 + requires.length + exports.length + opens.length
                                         + usesIndex.length + provides.length;
             output.PutShort(symbolTable.AddConstantUtf8(Constants.Module)).PutInt(moduleAttributeLength
-            ).PutShort(moduleNameIndex).PutShort(moduleFlags).PutShort(moduleVersionIndex).PutShort
+            ).PutShort(moduleNameIndex).PutShort((int) moduleFlags).PutShort(moduleVersionIndex).PutShort
                 (requiresCount).PutByteArray(requires.data, 0, requires.length).PutShort(exportsCount
             ).PutByteArray(exports.data, 0, exports.length).PutShort(opensCount).PutByteArray
                 (opens.data, 0, opens.length).PutShort(usesCount).PutByteArray(usesIndex.data, 0

@@ -180,7 +180,7 @@ namespace ObjectWeb.Asm
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public virtual void Visit(int version, int access, string name, string signature,
+	    public virtual void Visit(int version, AccessFlags access, string name, string signature,
             string superName, string[] interfaces)
         {
             if (cv != null) cv.Visit(version, access, name, signature, superName, interfaces);
@@ -225,7 +225,7 @@ namespace ObjectWeb.Asm
 	    ///     if this visitor is not
 	    ///     interested in visiting this module.
 	    /// </returns>
-	    public virtual ModuleVisitor VisitModule(string name, int access, string version)
+	    public virtual ModuleVisitor VisitModule(string name, AccessFlags access, string version)
         {
             if (api < VisitorAsmApiVersion.Asm6) throw new NotSupportedException("This feature requires ASM6");
             if (cv != null) return cv.VisitModule(name, access, version);
@@ -396,7 +396,7 @@ namespace ObjectWeb.Asm
 	    ///     class.
 	    /// </param>
 	    public virtual void VisitInnerClass(string name, string outerName, string innerName
-            , int access)
+            , AccessFlags access)
         {
             if (cv != null) cv.VisitInnerClass(name, outerName, innerName, access);
         }
@@ -425,7 +425,7 @@ namespace ObjectWeb.Asm
 	    ///     if this class visitor is not interested in visiting these annotations and attributes.
 	    /// </returns>
 	    //  [Obsolete(@"this API is experimental.")]
-        public virtual RecordComponentVisitor VisitRecordComponentExperimental(int access
+        public virtual RecordComponentVisitor VisitRecordComponentExperimental(AccessFlags access
             , string name, string descriptor, string signature)
         {
             if (api < VisitorAsmApiVersion.Asm8Experimental)
@@ -489,7 +489,7 @@ namespace ObjectWeb.Asm
 	    ///     if this class
 	    ///     visitor is not interested in visiting these annotations and attributes.
 	    /// </returns>
-	    public virtual FieldVisitor VisitField(int access, string name, string descriptor
+	    public virtual FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             if (cv != null) return cv.VisitField(access, name, descriptor, signature, value);
@@ -536,7 +536,7 @@ namespace ObjectWeb.Asm
 	    ///     if this class
 	    ///     visitor is not interested in visiting the code of this method.
 	    /// </returns>
-	    public virtual MethodVisitor VisitMethod(int access, string name, string descriptor
+	    public virtual MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             if (cv != null) return cv.VisitMethod(access, name, descriptor, signature, exceptions);

@@ -43,7 +43,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public int access;
+	    public ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The parameter's name.</summary>
         public string name;
@@ -65,7 +65,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ).
         /// </param>
         /// <param name="name">the parameter's name.</param>
-        public ParameterNode(string name, int access)
+        public ParameterNode(string name, ObjectWeb.Asm.Enums.AccessFlags access)
         {
             this.name = name;
             this.access = access;

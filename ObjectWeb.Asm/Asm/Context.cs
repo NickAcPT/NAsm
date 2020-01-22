@@ -125,7 +125,7 @@ namespace ObjectWeb.Asm
         internal Label[] currentLocalVariableAnnotationRangeStarts;
 
         /// <summary>The access flags of the current method.</summary>
-        internal int currentMethodAccessFlags;
+        internal AccessFlags currentMethodAccessFlags;
 
         /// <summary>The descriptor of the current method.</summary>
         internal string currentMethodDescriptor;

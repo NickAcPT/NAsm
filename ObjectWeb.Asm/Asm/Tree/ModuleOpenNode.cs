@@ -43,7 +43,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public int access;
+	    public ObjectWeb.Asm.Enums.AccessFlags access;
 
 	    /// <summary>
 	    ///     The fully qualified names (using dots) of the modules that can use deep reflection to the
@@ -75,7 +75,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public ModuleOpenNode(string packaze, int access, IList<string> modules)
+        public ModuleOpenNode(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, IList<string> modules)
         {
             this.packaze = packaze;
             this.access = access;

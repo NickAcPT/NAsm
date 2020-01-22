@@ -85,20 +85,20 @@ namespace ObjectWeb.Asm.Util
             base.VisitPackage(packaze);
         }
 
-        public override void VisitRequire(string module, int access, string version)
+        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             p.VisitRequire(module, access, version);
             base.VisitRequire(module, access, version);
         }
 
-        public override void VisitExport(string packaze, int access, params string[] modules
+        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             p.VisitExport(packaze, access, modules);
             base.VisitExport(packaze, access, modules);
         }
 
-        public override void VisitOpen(string packaze, int access, params string[] modules
+        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             p.VisitOpen(packaze, access, modules);

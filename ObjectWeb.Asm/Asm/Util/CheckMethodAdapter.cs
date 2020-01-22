@@ -149,7 +149,7 @@ namespace ObjectWeb.Asm.Util
         };
 
         /// <summary>The access flags of the visited method.</summary>
-        private readonly int access;
+        private readonly ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The exception handler ranges.</summary>
         /// <remarks>
@@ -545,7 +545,7 @@ namespace ObjectWeb.Asm.Util
         ///     the index of the instruction designated by each visited label so far
         ///     (in other methods). This map is updated with the labels from the visited method.
         /// </param>
-        public CheckMethodAdapter(int access, string name, string descriptor, MethodVisitor
+        public CheckMethodAdapter(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, MethodVisitor
             methodVisitor, IDictionary<Label, int> labelInsnIndices)
             : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, methodVisitor, labelInsnIndices
             )
@@ -588,7 +588,7 @@ namespace ObjectWeb.Asm.Util
         ///     the index of the instruction designated by each visited label so far
         ///     (in other methods). This map is updated with the labels from the visited method.
         /// </param>
-        protected internal CheckMethodAdapter(VisitorAsmApiVersion api, int access, string name, string descriptor
+        protected internal CheckMethodAdapter(VisitorAsmApiVersion api, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , MethodVisitor methodVisitor, IDictionary<Label, int> labelInsnIndices)
             : this(api, new _MethodNode_445(methodVisitor, api, access, name, descriptor, null
                 , null), labelInsnIndices)
@@ -596,11 +596,11 @@ namespace ObjectWeb.Asm.Util
             this.access = access;
         }
 
-        public override void VisitParameter(string name, int access)
+        public override void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
         {
             if (name != null) CheckUnqualifiedName(version, name, "name");
-            CheckClassAdapter.CheckAccess(access, OpcodesConstants.Acc_Final + OpcodesConstants
-                                                      .Acc_Mandated + OpcodesConstants.Acc_Synthetic);
+            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Final + (int) ObjectWeb.Asm.Enums.AccessFlags
+                                                      .Mandated + (int) ObjectWeb.Asm.Enums.AccessFlags.Synthetic);
             base.VisitParameter(name, access);
         }
 
@@ -667,7 +667,7 @@ namespace ObjectWeb.Asm.Util
 
         public override void VisitCode()
         {
-            if ((access & OpcodesConstants.Acc_Abstract) != 0)
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Abstract))
                 throw new NotSupportedException("Abstract methods cannot have code");
             visitCodeCalled = true;
             base.VisitCode();
@@ -1575,7 +1575,7 @@ namespace ObjectWeb.Asm.Util
         {
             private readonly MethodVisitor methodVisitor;
 
-            public _MethodNode_445(MethodVisitor methodVisitor, VisitorAsmApiVersion baseArg1, int baseArg2, string
+            public _MethodNode_445(MethodVisitor methodVisitor, VisitorAsmApiVersion baseArg1, AccessFlags baseArg2, string
                 baseArg3, string baseArg4, string baseArg5, string[] baseArg6)
                 : base(baseArg1, baseArg2, baseArg3, baseArg4, baseArg5, baseArg6)
             {

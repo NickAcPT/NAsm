@@ -149,21 +149,21 @@ namespace ObjectWeb.Asm.Util
             base.VisitPackage(packaze);
         }
 
-        public override void VisitRequire(string module, int access, string version)
+        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             CheckVisitEndNotCalled();
             CheckClassAdapter.CheckFullyQualifiedName(OpcodesConstants.V9, module, "required module"
             );
             requiredModules.CheckNameNotAlreadyDeclared(module);
-            CheckClassAdapter.CheckAccess(access, OpcodesConstants.Acc_Static_Phase | OpcodesConstants
-                                                      .Acc_Transitive | OpcodesConstants.Acc_Synthetic |
-                                                  OpcodesConstants.Acc_Mandated
+            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.StaticPhase | ObjectWeb.Asm.Enums.AccessFlags
+                                                      .Transitive | ObjectWeb.Asm.Enums.AccessFlags.Synthetic |
+                                                  ObjectWeb.Asm.Enums.AccessFlags.Mandated
             );
             if (classVersion >= OpcodesConstants.V10 && module.Equals("java.base") && (access
-                                                                                       & (OpcodesConstants
-                                                                                              .Acc_Static_Phase |
-                                                                                          OpcodesConstants
-                                                                                              .Acc_Transitive)) != 0)
+                                                                                       & (ObjectWeb.Asm.Enums.AccessFlags
+                                                                                              .StaticPhase |
+                                                                                          ObjectWeb.Asm.Enums.AccessFlags
+                                                                                              .Transitive)) != 0)
                 throw new ArgumentException(
                     "Invalid access flags: " + access +
                     " java.base can not be declared ACC_TRANSITIVE or ACC_STATIC_PHASE"
@@ -171,15 +171,15 @@ namespace ObjectWeb.Asm.Util
             base.VisitRequire(module, access, version);
         }
 
-        public override void VisitExport(string packaze, int access, params string[] modules
+        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             CheckVisitEndNotCalled();
             CheckMethodAdapter.CheckInternalName(OpcodesConstants.V9, packaze, "package name"
             );
             exportedPackages.CheckNameNotAlreadyDeclared(packaze);
-            CheckClassAdapter.CheckAccess(access, OpcodesConstants.Acc_Synthetic | OpcodesConstants
-                                                      .Acc_Mandated);
+            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Synthetic | ObjectWeb.Asm.Enums.AccessFlags
+                                                      .Mandated);
             if (modules != null)
                 foreach (var module in modules)
                     CheckClassAdapter.CheckFullyQualifiedName(OpcodesConstants.V9, module, "module export to"
@@ -187,7 +187,7 @@ namespace ObjectWeb.Asm.Util
             base.VisitExport(packaze, access, modules);
         }
 
-        public override void VisitOpen(string packaze, int access, params string[] modules
+        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             CheckVisitEndNotCalled();
@@ -195,8 +195,8 @@ namespace ObjectWeb.Asm.Util
             CheckMethodAdapter.CheckInternalName(OpcodesConstants.V9, packaze, "package name"
             );
             openedPackages.CheckNameNotAlreadyDeclared(packaze);
-            CheckClassAdapter.CheckAccess(access, OpcodesConstants.Acc_Synthetic | OpcodesConstants
-                                                      .Acc_Mandated);
+            CheckClassAdapter.CheckAccess(access, ObjectWeb.Asm.Enums.AccessFlags.Synthetic | ObjectWeb.Asm.Enums.AccessFlags
+                                                      .Mandated);
             if (modules != null)
                 foreach (var module in modules)
                     CheckClassAdapter.CheckFullyQualifiedName(OpcodesConstants.V9, module, "module open to"

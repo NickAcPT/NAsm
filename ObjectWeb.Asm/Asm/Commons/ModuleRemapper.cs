@@ -96,12 +96,12 @@ namespace ObjectWeb.Asm.Commons
             base.VisitPackage(remapper.MapPackageName(packaze));
         }
 
-        public override void VisitRequire(string module, int access, string version)
+        public override void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             base.VisitRequire(remapper.MapModuleName(module), access, version);
         }
 
-        public override void VisitExport(string packaze, int access, params string[] modules
+        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             string[] remappedModules = null;
@@ -114,7 +114,7 @@ namespace ObjectWeb.Asm.Commons
             base.VisitExport(remapper.MapPackageName(packaze), access, remappedModules);
         }
 
-        public override void VisitOpen(string packaze, int access, params string[] modules
+        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             string[] remappedModules = null;

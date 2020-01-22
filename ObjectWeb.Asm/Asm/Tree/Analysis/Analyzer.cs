@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm.Tree.Analysis
 {
@@ -117,7 +118,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         /// <exception cref="AnalyzerException" />
         public virtual Frame<V>[] Analyze(string owner, MethodNode method)
         {
-            if ((method.access & (OpcodesConstants.Acc_Abstract | OpcodesConstants.Acc_Native
+            if ((method.access & (ObjectWeb.Asm.Enums.AccessFlags.Abstract | ObjectWeb.Asm.Enums.AccessFlags.Native
                  )) != 0)
             {
                 frames = new Frame<V>[0];
@@ -445,7 +446,7 @@ namespace ObjectWeb.Asm.Tree.Analysis
         {
             var frame = NewFrame(method.maxLocals, method.maxStack);
             var currentLocal = 0;
-            var isInstanceMethod = (method.access & OpcodesConstants.Acc_Static) == 0;
+            var isInstanceMethod = method.access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static);
             if (isInstanceMethod)
             {
                 var ownerType = Type.GetObjectType(owner);

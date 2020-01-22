@@ -76,7 +76,7 @@ namespace ObjectWeb.Asm.Commons
         private IDictionary<Label, IList<object>> forwardJumpStackFrames;
 
         /// <summary>The access flags of the visited method.</summary>
-        protected internal int methodAccess;
+        protected internal AccessFlags methodAccess;
 
         /// <summary>The descriptor of the visited method.</summary>
         protected internal string methodDesc;
@@ -143,7 +143,7 @@ namespace ObjectWeb.Asm.Commons
         ///     <see cref="Org.Objectweb.Asm.Type">Type</see>
         ///     ).
         /// </param>
-        protected internal AdviceAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, int access
+        protected internal AdviceAdapter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access
             , string name, string descriptor)
             : base(api, methodVisitor, access, name, descriptor)
         {

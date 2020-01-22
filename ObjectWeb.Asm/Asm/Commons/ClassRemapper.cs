@@ -108,7 +108,7 @@ namespace ObjectWeb.Asm.Commons
             this.remapper = remapper;
         }
 
-        public override void Visit(int version, int access, string name, string signature
+        public override void Visit(int version, AccessFlags access, string name, string signature
             , string superName, string[] interfaces)
         {
             className = name;
@@ -119,7 +119,7 @@ namespace ObjectWeb.Asm.Commons
                         (interfaces));
         }
 
-        public override ModuleVisitor VisitModule(string name, int flags, string version)
+        public override ModuleVisitor VisitModule(string name, AccessFlags flags, string version)
         {
             var moduleVisitor = base.VisitModule(remapper.MapModuleName(name), flags
                 , version);
@@ -160,7 +160,7 @@ namespace ObjectWeb.Asm.Commons
             base.VisitAttribute(attribute);
         }
 
-        public override RecordComponentVisitor VisitRecordComponentExperimental(int access
+        public override RecordComponentVisitor VisitRecordComponentExperimental(AccessFlags access
             , string name, string descriptor, string signature)
         {
             var recordComponentVisitor = base.VisitRecordComponentExperimental
@@ -172,7 +172,7 @@ namespace ObjectWeb.Asm.Commons
                 );
         }
 
-        public override FieldVisitor VisitField(int access, string name, string descriptor
+        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var fieldVisitor = base.VisitField(access, remapper.MapFieldName(className
@@ -181,7 +181,7 @@ namespace ObjectWeb.Asm.Commons
             return fieldVisitor == null ? null : CreateFieldRemapper(fieldVisitor);
         }
 
-        public override MethodVisitor VisitMethod(int access, string name, string descriptor
+        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             var remappedDescriptor = remapper.MapMethodDesc(descriptor);
@@ -192,7 +192,7 @@ namespace ObjectWeb.Asm.Commons
         }
 
         public override void VisitInnerClass(string name, string outerName, string innerName
-            , int access)
+            , AccessFlags access)
         {
             base.VisitInnerClass(remapper.MapType(name), outerName == null ? null : remapper.MapType(outerName),
                 innerName == null

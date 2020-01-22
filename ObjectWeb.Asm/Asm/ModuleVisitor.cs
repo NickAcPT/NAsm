@@ -151,7 +151,7 @@ namespace ObjectWeb.Asm
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public virtual void VisitRequire(string module, int access, string version)
+	    public virtual void VisitRequire(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             if (mv != null) mv.VisitRequire(module, access, version);
         }
@@ -171,7 +171,7 @@ namespace ObjectWeb.Asm
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public virtual void VisitExport(string packaze, int access, params string[] modules
+	    public virtual void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             if (mv != null) mv.VisitExport(packaze, access, modules);
@@ -192,7 +192,7 @@ namespace ObjectWeb.Asm
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public virtual void VisitOpen(string packaze, int access, params string[] modules)
+	    public virtual void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules)
         {
             if (mv != null) mv.VisitOpen(packaze, access, modules);
         }

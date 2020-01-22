@@ -109,7 +109,7 @@ namespace ObjectWeb.Asm
         ///     , which are removed when generating the
         ///     ClassFile structure.
         /// </remarks>
-        private int accessFlags;
+        private ObjectWeb.Asm.Enums.AccessFlags accessFlags;
 
         /// <summary>
         ///     Indicates what must be automatically computed in
@@ -412,7 +412,7 @@ namespace ObjectWeb.Asm
         // -----------------------------------------------------------------------------------------------
         // Implementation of the ClassVisitor abstract class
         // -----------------------------------------------------------------------------------------------
-        public sealed override void Visit(int version, int access, string name, string signature
+        public sealed override void Visit(int version, AccessFlags access, string name, string signature
             , string superName, string[] interfaces)
         {
             this.version = version;
@@ -441,8 +441,7 @@ namespace ObjectWeb.Asm
             if (debug != null) debugExtension = new ByteVector().EncodeUtf8(debug, 0, int.MaxValue);
         }
 
-        public sealed override ModuleVisitor VisitModule(string name, int access, string
-            version)
+        public sealed override ModuleVisitor VisitModule(string name, AccessFlags access, string version)
         {
             return moduleWriter = new ModuleWriter(symbolTable, symbolTable.AddConstantModule
                     (name).index, access, version == null ? 0 : symbolTable.AddConstantUtf8(version)
@@ -505,8 +504,7 @@ namespace ObjectWeb.Asm
             );
         }
 
-        public sealed override void VisitInnerClass(string name, string outerName, string
-            innerName, int access)
+        public sealed override void VisitInnerClass(string name, string outerName, string innerName, AccessFlags access)
         {
             if (innerClasses == null) innerClasses = new ByteVector();
             // Section 4.7.6 of the JVMS states "Every CONSTANT_Class_info entry in the constant_pool table
@@ -528,15 +526,15 @@ namespace ObjectWeb.Asm
                     ? 0
                     : symbolTable.AddConstantUtf8(innerName
                     ));
-                innerClasses.PutShort(access);
+                innerClasses.PutShort((int) access);
                 nameSymbol.info = numberOfInnerClasses;
             }
         }
 
         // Else, compare the inner classes entry nameSymbol.info - 1 with the arguments of this method
         // and throw an exception if there is a difference?
-        public sealed override RecordComponentVisitor VisitRecordComponentExperimental(int
-            access, string name, string descriptor, string signature)
+        public sealed override RecordComponentVisitor VisitRecordComponentExperimental(AccessFlags access, string name,
+            string descriptor, string signature)
         {
             var recordComponentWriter = new RecordComponentWriter(symbolTable
                 , access, name, descriptor, signature);
@@ -547,7 +545,7 @@ namespace ObjectWeb.Asm
             return lastRecordComponent = recordComponentWriter;
         }
 
-        public sealed override FieldVisitor VisitField(int access, string name, string descriptor
+        public sealed override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var fieldWriter = new FieldWriter(symbolTable, access, name, descriptor,
@@ -559,7 +557,7 @@ namespace ObjectWeb.Asm
             return lastField = fieldWriter;
         }
 
-        public sealed override MethodVisitor VisitMethod(int access, string name, string
+        public sealed override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string
             descriptor, string signature, string[] exceptions)
         {
             var methodWriter = new MethodWriter(symbolTable, access, name, descriptor
@@ -632,7 +630,7 @@ namespace ObjectWeb.Asm
                 symbolTable.AddConstantUtf8(Constants.Enclosing_Method);
             }
 
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0 && (version & 0xFFFF) < OpcodesConstants.V1_5)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
             {
                 ++attributesCount;
                 size += 6;
@@ -660,7 +658,7 @@ namespace ObjectWeb.Asm
                 symbolTable.AddConstantUtf8(Constants.Source_Debug_Extension);
             }
 
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
             {
                 ++attributesCount;
                 size += 6;
@@ -765,10 +763,9 @@ namespace ObjectWeb.Asm
             result.PutInt(unchecked((int) 0xCAFEBABE)).PutInt(version);
             symbolTable.PutConstantPool(result);
             var mask = (version & 0xFFFF) < OpcodesConstants.V1_5
-                ? OpcodesConstants
-                    .Acc_Synthetic
-                : 0;
-            result.PutShort(accessFlags & ~mask).PutShort(thisClass).PutShort(superClass);
+                ? ObjectWeb.Asm.Enums.AccessFlags.Synthetic
+                : AccessFlags.None;
+            result.PutShort((int) (accessFlags & ~mask)).PutShort(thisClass).PutShort(superClass);
             result.PutShort(interfaceCount);
             for (var i = 0; i < interfaceCount; ++i) result.PutShort(interfaces[i]);
             result.PutShort(fieldsCount);
@@ -801,7 +798,7 @@ namespace ObjectWeb.Asm
             if (enclosingClassIndex != 0)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Enclosing_Method)).PutInt(4
                 ).PutShort(enclosingClassIndex).PutShort(enclosingMethodIndex);
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0 && (version & 0xFFFF) < OpcodesConstants.V1_5)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && (version & 0xFFFF) < OpcodesConstants.V1_5)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Synthetic)).PutInt(0);
             if (signatureIndex != 0)
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Signature)).PutInt(2).PutShort
@@ -816,7 +813,7 @@ namespace ObjectWeb.Asm
                     (length).PutByteArray(debugExtension.data, 0, length);
             }
 
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
                 result.PutShort(symbolTable.AddConstantUtf8(Constants.Deprecated)).PutInt(0);
             AnnotationWriter.PutAnnotations(symbolTable, lastRuntimeVisibleAnnotation, lastRuntimeInvisibleAnnotation
                 , lastRuntimeVisibleTypeAnnotation, lastRuntimeInvisibleTypeAnnotation, result);

@@ -448,7 +448,7 @@ namespace ObjectWeb.Asm
         /// </summary>
         /// <value>the class access flags.</value>
         /// <seealso cref="ClassVisitor.Visit(int, int, string, string, string, string[])" />
-        public virtual int AccessFlags => Access;
+        public virtual ObjectWeb.Asm.Enums.AccessFlags AccessFlags => Access;
 
         /// <summary>
         ///     Returns the class's access flags (see
@@ -458,9 +458,9 @@ namespace ObjectWeb.Asm
         /// </summary>
         /// <value>the class access flags.</value>
         /// <seealso cref="ClassVisitor.Visit(int, int, string, string, string, string[])" />
-        public virtual int Access
+        public virtual ObjectWeb.Asm.Enums.AccessFlags Access
         {
-            get { return ReadUnsignedShort(header); }
+            get { return (AccessFlags) ReadUnsignedShort(header); }
         }
 
         /// <summary>
@@ -602,7 +602,7 @@ namespace ObjectWeb.Asm
             // Read the access_flags, this_class, super_class, interface_count and interfaces fields.
             var charBuffer = context.charBuffer;
             var currentOffset = header;
-            var accessFlags = ReadUnsignedShort(currentOffset);
+            AccessFlags accessFlags = (AccessFlags) ReadUnsignedShort(currentOffset);
             var thisClass = ReadClass(currentOffset + 2, charBuffer);
             var superClass = ReadClass(currentOffset + 4, charBuffer);
             var interfaces = new string[ReadUnsignedShort(currentOffset + 6)];
@@ -697,11 +697,11 @@ namespace ObjectWeb.Asm
                 }
                 else if (Deprecated.Equals(attributeName))
                 {
-                    accessFlags |= Acc_Deprecated;
+                    accessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Deprecated;
                 }
                 else if (Synthetic.Equals(attributeName))
                 {
-                    accessFlags |= Acc_Synthetic;
+                    accessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Synthetic;
                 }
                 else if (Source_Debug_Extension.Equals(attributeName))
                 {
@@ -898,7 +898,7 @@ namespace ObjectWeb.Asm
                 {
                     classVisitor.VisitInnerClass(ReadClass(currentClassesOffset, charBuffer), ReadClass
                         (currentClassesOffset + 2, charBuffer), ReadUTF8(currentClassesOffset + 4, charBuffer
-                    ), ReadUnsignedShort(currentClassesOffset + 6));
+                    ), (AccessFlags) ReadUnsignedShort(currentClassesOffset + 6));
                     currentClassesOffset += 8;
                 }
             }
@@ -954,7 +954,7 @@ namespace ObjectWeb.Asm
             var moduleFlags = ReadUnsignedShort(currentOffset + 2);
             var moduleVersion = ReadUTF8(currentOffset + 4, buffer);
             currentOffset += 6;
-            var moduleVisitor = classVisitor.VisitModule(moduleName, moduleFlags, moduleVersion
+            var moduleVisitor = classVisitor.VisitModule(moduleName, (AccessFlags) moduleFlags, moduleVersion
             );
             if (moduleVisitor == null) return;
             // Visit the ModuleMainClass attribute.
@@ -981,7 +981,7 @@ namespace ObjectWeb.Asm
                 var requiresFlags = ReadUnsignedShort(currentOffset + 2);
                 var requiresVersion = ReadUTF8(currentOffset + 4, buffer);
                 currentOffset += 6;
-                moduleVisitor.VisitRequire(requires, requiresFlags, requiresVersion);
+                moduleVisitor.VisitRequire(requires, (AccessFlags) requiresFlags, requiresVersion);
             }
 
             // Read the 'exports_count' and 'exports' fields.
@@ -1006,7 +1006,7 @@ namespace ObjectWeb.Asm
                     }
                 }
 
-                moduleVisitor.VisitExport(exports, exportsFlags, exportsTo);
+                moduleVisitor.VisitExport(exports, (AccessFlags) exportsFlags, exportsTo);
             }
 
             // Reads the 'opens_count' and 'opens' fields.
@@ -1030,7 +1030,7 @@ namespace ObjectWeb.Asm
                     }
                 }
 
-                moduleVisitor.VisitOpen(opens, opensFlags, opensTo);
+                moduleVisitor.VisitOpen(opens, (AccessFlags) opensFlags, opensTo);
             }
 
             // Read the 'uses_count' and 'uses' fields.
@@ -1141,7 +1141,7 @@ namespace ObjectWeb.Asm
             }
 
             var recordComponentVisitor = classVisitor.VisitRecordComponentExperimental
-                (accessFlags, name, descriptor, signature);
+                ((AccessFlags) accessFlags, name, descriptor, signature);
             if (recordComponentVisitor == null) return currentOffset;
             // Visit the RuntimeVisibleAnnotations attribute.
             if (runtimeVisibleAnnotationsOffset != 0)
@@ -1328,7 +1328,7 @@ namespace ObjectWeb.Asm
             }
 
             // Visit the field declaration.
-            var fieldVisitor = classVisitor.VisitField(accessFlags, name, descriptor
+            var fieldVisitor = classVisitor.VisitField((AccessFlags) accessFlags, name, descriptor
                 , signature, constantValue);
             if (fieldVisitor == null) return currentOffset;
             // Visit the RuntimeVisibleAnnotations attribute.
@@ -1439,7 +1439,7 @@ namespace ObjectWeb.Asm
             var charBuffer = context.charBuffer;
             // Read the access_flags, name_index and descriptor_index fields.
             var currentOffset = methodInfoOffset;
-            context.currentMethodAccessFlags = ReadUnsignedShort(currentOffset);
+            context.currentMethodAccessFlags = (AccessFlags) ReadUnsignedShort(currentOffset);
             context.currentMethodName = ReadUTF8(currentOffset + 2, charBuffer);
             context.currentMethodDescriptor = ReadUTF8(currentOffset + 4, charBuffer);
             currentOffset += 6;
@@ -1505,7 +1505,7 @@ namespace ObjectWeb.Asm
                 }
                 else if (Deprecated.Equals(attributeName))
                 {
-                    context.currentMethodAccessFlags |= Acc_Deprecated;
+                    context.currentMethodAccessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Deprecated;
                 }
                 else if (Runtime_Visible_Annotations.Equals(attributeName))
                 {
@@ -1522,7 +1522,7 @@ namespace ObjectWeb.Asm
                 else if (Synthetic.Equals(attributeName))
                 {
                     synthetic = true;
-                    context.currentMethodAccessFlags |= Acc_Synthetic;
+                    context.currentMethodAccessFlags |= ObjectWeb.Asm.Enums.AccessFlags.Synthetic;
                 }
                 else if (Runtime_Invisible_Annotations.Equals(attributeName))
                 {
@@ -1569,8 +1569,7 @@ namespace ObjectWeb.Asm
             if (methodVisitor is MethodWriter)
             {
                 var methodWriter = (MethodWriter) methodVisitor;
-                if (methodWriter.CanCopyMethodAttributes(this, synthetic, (context.currentMethodAccessFlags
-                                                                           & Acc_Deprecated) != 0, ReadUnsignedShort(
+                if (methodWriter.CanCopyMethodAttributes(this, synthetic, context.currentMethodAccessFlags.HasFlagFast(AccessFlags.Deprecated), ReadUnsignedShort(
                     methodInfoOffset + 4
                 ), signatureIndex, exceptionsOffset))
                 {
@@ -1588,7 +1587,7 @@ namespace ObjectWeb.Asm
                 while (parametersCount-- > 0)
                 {
                     // Read the name_index and access_flags fields and visit them.
-                    methodVisitor.VisitParameter(ReadUTF8(currentParameterOffset, charBuffer), ReadUnsignedShort
+                    methodVisitor.VisitParameter(ReadUTF8(currentParameterOffset, charBuffer), (AccessFlags) ReadUnsignedShort
                         (currentParameterOffset + 2));
                     currentParameterOffset += 4;
                 }
@@ -3693,7 +3692,7 @@ namespace ObjectWeb.Asm
             var methodDescriptor = context.currentMethodDescriptor;
             var locals = context.currentFrameLocalTypes;
             var numLocal = 0;
-            if ((context.currentMethodAccessFlags & Acc_Static) == 0)
+            if (context.currentMethodAccessFlags.HasNotFlagFast(AccessFlags.Static))
             {
                 if ("<init>".Equals(context.currentMethodName))
                     locals[numLocal++] = Uninitialized_This;

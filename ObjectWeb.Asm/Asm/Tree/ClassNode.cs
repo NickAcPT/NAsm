@@ -42,7 +42,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ). This field also indicates if
         ///     the class is deprecated.
         /// </summary>
-        public int access;
+        public ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The non standard attributes of this class.</summary>
         /// <remarks>
@@ -270,7 +270,7 @@ namespace ObjectWeb.Asm.Tree
         // -----------------------------------------------------------------------------------------------
         // Implementation of the ClassVisitor abstract class
         // -----------------------------------------------------------------------------------------------
-        public override void Visit(int version, int access, string name, string signature
+        public override void Visit(int version, AccessFlags access, string name, string signature
             , string superName, string[] interfaces)
         {
             this.version = version;
@@ -287,8 +287,7 @@ namespace ObjectWeb.Asm.Tree
             sourceDebug = debug;
         }
 
-        public override ModuleVisitor VisitModule(string name, int access, string version
-        )
+        public override ModuleVisitor VisitModule(string name, AccessFlags access, string version)
         {
             module = new ModuleNode(name, access, version);
             return module;
@@ -347,14 +346,14 @@ namespace ObjectWeb.Asm.Tree
         }
 
         public override void VisitInnerClass(string name, string outerName, string innerName
-            , int access)
+            , AccessFlags access)
         {
             var innerClass = new InnerClassNode(name, outerName, innerName, access
             );
             innerClasses.Add(innerClass);
         }
 
-        public override RecordComponentVisitor VisitRecordComponentExperimental(int access
+        public override RecordComponentVisitor VisitRecordComponentExperimental(AccessFlags access
             , string name, string descriptor, string signature)
         {
             var recordComponent = new RecordComponentNode(access, name, descriptor
@@ -364,7 +363,7 @@ namespace ObjectWeb.Asm.Tree
             return recordComponent;
         }
 
-        public override FieldVisitor VisitField(int access, string name, string descriptor
+        public override FieldVisitor VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, object value)
         {
             var field = new FieldNode(access, name, descriptor, signature, value);
@@ -372,7 +371,7 @@ namespace ObjectWeb.Asm.Tree
             return field;
         }
 
-        public override MethodVisitor VisitMethod(int access, string name, string descriptor
+        public override MethodVisitor VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions)
         {
             var method = new MethodNode(access, name, descriptor, signature, exceptions

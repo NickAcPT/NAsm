@@ -84,7 +84,7 @@ namespace ObjectWeb.Asm.Commons
 	    ///     <literal>null</literal>
 	    ///     .
 	    /// </param>
-	    public TryCatchBlockSorter(MethodVisitor methodVisitor, int access, string name,
+	    public TryCatchBlockSorter(MethodVisitor methodVisitor, ObjectWeb.Asm.Enums.AccessFlags access, string name,
             string descriptor, string signature, string[] exceptions)
             : this(VisitorAsmApiVersion.Asm7, methodVisitor, access, name, descriptor, signature,
                 exceptions)
@@ -93,7 +93,7 @@ namespace ObjectWeb.Asm.Commons
             if (GetType() != typeof(TryCatchBlockSorter)) throw new InvalidOperationException();
         }
 
-        protected internal TryCatchBlockSorter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, int
+        protected internal TryCatchBlockSorter(VisitorAsmApiVersion api, MethodVisitor methodVisitor, AccessFlags
             access, string name, string descriptor, string signature, string[] exceptions)
             : base(api, access, name, descriptor, signature, exceptions)
         {

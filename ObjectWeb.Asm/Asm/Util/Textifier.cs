@@ -112,7 +112,7 @@ namespace ObjectWeb.Asm.Util
             Arrays.AsList("T", "I", "F", "D", "J", "N", "U");
 
         /// <summary>The access flags of the visited class.</summary>
-        private int access;
+        private ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The names of the labels.</summary>
         protected internal IDictionary<Label, string> labelNames;
@@ -213,10 +213,10 @@ namespace ObjectWeb.Asm.Util
         // -----------------------------------------------------------------------------------------------
         // Classes
         // -----------------------------------------------------------------------------------------------
-        public override void Visit(int version, int access, string name, string signature
+        public override void Visit(int version, ObjectWeb.Asm.Enums.AccessFlags access, string name, string signature
             , string superName, string[] interfaces)
         {
-            if ((access & OpcodesConstants.Acc_Module) != 0)
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Module))
                 // Modules are printed in visitModule.
                 return;
             this.access = access;
@@ -225,17 +225,17 @@ namespace ObjectWeb.Asm.Util
             stringBuilder.Length = 0;
             stringBuilder.Append("// class version ").Append(majorVersion).Append('.').Append
                 (minorVersion).Append(" (").Append(version).Append(")\n");
-            if ((access & OpcodesConstants.Acc_Deprecated) != 0) stringBuilder.Append(Deprecated);
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) stringBuilder.Append(Deprecated);
             AppendRawAccess(access);
             AppendDescriptor(Class_Signature, signature);
             if (signature != null) AppendJavaDeclaration(name, signature);
-            AppendAccess(access & ~(OpcodesConstants.Acc_Super | OpcodesConstants.Acc_Module)
+            AppendAccess(access & ~(ObjectWeb.Asm.Enums.AccessFlags.Super | ObjectWeb.Asm.Enums.AccessFlags.Module)
             );
-            if ((access & OpcodesConstants.Acc_Annotation) != 0)
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Annotation))
                 stringBuilder.Append("@interface ");
-            else if ((access & OpcodesConstants.Acc_Interface) != 0)
+            else if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface))
                 stringBuilder.Append("interface ");
-            else if ((access & OpcodesConstants.Acc_Enum) == 0) stringBuilder.Append("class ");
+            else if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Enum)) stringBuilder.Append("class ");
             AppendDescriptor(Internal_Name, name);
             if (superName != null && !"java/lang/Object".Equals(superName))
             {
@@ -265,10 +265,10 @@ namespace ObjectWeb.Asm.Util
             if (stringBuilder.Length > 0) text.Add(stringBuilder.ToString());
         }
 
-        public override Printer VisitModule(string name, int access, string version)
+        public override Printer VisitModule(string name, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             stringBuilder.Length = 0;
-            if ((access & OpcodesConstants.Acc_Open) != 0) stringBuilder.Append("open ");
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Open)) stringBuilder.Append("open ");
             stringBuilder.Append("module ").Append(name).Append(" { ").Append(version == null
                 ? string.Empty
                 : "// " + version).Append("\n\n");
@@ -336,11 +336,11 @@ namespace ObjectWeb.Asm.Util
         }
 
         public override void VisitInnerClass(string name, string outerName, string innerName
-            , int access)
+            , ObjectWeb.Asm.Enums.AccessFlags access)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append(tab);
-            AppendRawAccess(access & ~OpcodesConstants.Acc_Super);
+            AppendRawAccess(access & ~ObjectWeb.Asm.Enums.AccessFlags.Super);
             stringBuilder.Append(tab);
             AppendAccess(access);
             stringBuilder.Append("INNERCLASS ");
@@ -353,12 +353,12 @@ namespace ObjectWeb.Asm.Util
             text.Add(stringBuilder.ToString());
         }
 
-        public override Printer VisitRecordComponentExperimental(int access, string name,
+        public override Printer VisitRecordComponentExperimental(ObjectWeb.Asm.Enums.AccessFlags access, string name,
             string descriptor, string signature)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append('\n');
-            if ((access & OpcodesConstants.Acc_Deprecated) != 0) stringBuilder.Append(tab).Append(Deprecated);
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) stringBuilder.Append(tab).Append(Deprecated);
             stringBuilder.Append(tab);
             AppendRawAccess(access);
             if (signature != null)
@@ -378,12 +378,12 @@ namespace ObjectWeb.Asm.Util
             return AddNewTextifier(null);
         }
 
-        public override Printer VisitField(int access, string name, string descriptor, string
+        public override Printer VisitField(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string
             signature, object value)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append('\n');
-            if ((access & OpcodesConstants.Acc_Deprecated) != 0) stringBuilder.Append(tab).Append(Deprecated);
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) stringBuilder.Append(tab).Append(Deprecated);
             stringBuilder.Append(tab);
             AppendRawAccess(access);
             if (signature != null)
@@ -412,12 +412,12 @@ namespace ObjectWeb.Asm.Util
             return AddNewTextifier(null);
         }
 
-        public override Printer VisitMethod(int access, string name, string descriptor, string
+        public override Printer VisitMethod(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string
             signature, string[] exceptions)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append('\n');
-            if ((access & OpcodesConstants.Acc_Deprecated) != 0) stringBuilder.Append(tab).Append(Deprecated);
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) stringBuilder.Append(tab).Append(Deprecated);
             stringBuilder.Append(tab);
             AppendRawAccess(access);
             if (signature != null)
@@ -429,14 +429,14 @@ namespace ObjectWeb.Asm.Util
             }
 
             stringBuilder.Append(tab);
-            AppendAccess(access & ~(OpcodesConstants.Acc_Volatile | OpcodesConstants.Acc_Transient
+            AppendAccess(access & ~(ObjectWeb.Asm.Enums.AccessFlags.Volatile | ObjectWeb.Asm.Enums.AccessFlags.Transient
                              ));
-            if ((access & OpcodesConstants.Acc_Native) != 0) stringBuilder.Append("native ");
-            if ((access & OpcodesConstants.Acc_Varargs) != 0) stringBuilder.Append("varargs ");
-            if ((access & OpcodesConstants.Acc_Bridge) != 0) stringBuilder.Append("bridge ");
-            if ((this.access & OpcodesConstants.Acc_Interface) != 0 && (access & (OpcodesConstants
-                                                                                      .Acc_Abstract |
-                                                                                  OpcodesConstants.Acc_Static)) == 0)
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Native)) stringBuilder.Append("native ");
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Varargs)) stringBuilder.Append("varargs ");
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Bridge)) stringBuilder.Append("bridge ");
+            if (this.access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface) && (access & (ObjectWeb.Asm.Enums.AccessFlags
+                                                                                                     .Abstract |
+                                                                                                 ObjectWeb.Asm.Enums.AccessFlags.Static)) == 0)
                 stringBuilder.Append("default ");
             stringBuilder.Append(name);
             AppendDescriptor(Method_Descriptor, descriptor);
@@ -477,31 +477,31 @@ namespace ObjectWeb.Asm.Util
             text.Add(stringBuilder.ToString());
         }
 
-        public override void VisitRequire(string require, int access, string version)
+        public override void VisitRequire(string require, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append(tab).Append("requires ");
-            if ((access & OpcodesConstants.Acc_Transitive) != 0) stringBuilder.Append("transitive ");
-            if ((access & OpcodesConstants.Acc_Static_Phase) != 0) stringBuilder.Append("static ");
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Transitive)) stringBuilder.Append("transitive ");
+            if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static_Phase)) stringBuilder.Append("static ");
             stringBuilder.Append(require).Append(';');
             AppendRawAccess(access);
             if (version != null) stringBuilder.Append("  // version ").Append(version).Append('\n');
             text.Add(stringBuilder.ToString());
         }
 
-        public override void VisitExport(string packaze, int access, params string[] modules
+        public override void VisitExport(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             VisitExportOrOpen("exports ", packaze, access, modules);
         }
 
-        public override void VisitOpen(string packaze, int access, params string[] modules
+        public override void VisitOpen(string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params string[] modules
         )
         {
             VisitExportOrOpen("opens ", packaze, access, modules);
         }
 
-        private void VisitExportOrOpen(string method, string packaze, int access, params
+        private void VisitExportOrOpen(string method, string packaze, ObjectWeb.Asm.Enums.AccessFlags access, params
             string[] modules)
         {
             stringBuilder.Length = 0;
@@ -822,7 +822,7 @@ namespace ObjectWeb.Asm.Util
         // -----------------------------------------------------------------------------------------------
         // Methods
         // -----------------------------------------------------------------------------------------------
-        public override void VisitParameter(string name, int access)
+        public override void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
         {
             stringBuilder.Length = 0;
             stringBuilder.Append(tab2).Append("// parameter ");
@@ -1334,21 +1334,21 @@ namespace ObjectWeb.Asm.Util
         ///     .
         /// </summary>
         /// <param name="accessFlags">some access flags.</param>
-        private void AppendAccess(int accessFlags)
+        private void AppendAccess(ObjectWeb.Asm.Enums.AccessFlags accessFlags)
         {
-            if ((accessFlags & OpcodesConstants.Acc_Public) != 0) stringBuilder.Append("public ");
-            if ((accessFlags & OpcodesConstants.Acc_Private) != 0) stringBuilder.Append("private ");
-            if ((accessFlags & OpcodesConstants.Acc_Protected) != 0) stringBuilder.Append("protected ");
-            if ((accessFlags & OpcodesConstants.Acc_Final) != 0) stringBuilder.Append("final ");
-            if ((accessFlags & OpcodesConstants.Acc_Static) != 0) stringBuilder.Append("static ");
-            if ((accessFlags & OpcodesConstants.Acc_Synchronized) != 0) stringBuilder.Append("synchronized ");
-            if ((accessFlags & OpcodesConstants.Acc_Volatile) != 0) stringBuilder.Append("volatile ");
-            if ((accessFlags & OpcodesConstants.Acc_Transient) != 0) stringBuilder.Append("transient ");
-            if ((accessFlags & OpcodesConstants.Acc_Abstract) != 0) stringBuilder.Append("abstract ");
-            if ((accessFlags & OpcodesConstants.Acc_Strict) != 0) stringBuilder.Append("strictfp ");
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0) stringBuilder.Append("synthetic ");
-            if ((accessFlags & OpcodesConstants.Acc_Mandated) != 0) stringBuilder.Append("mandated ");
-            if ((accessFlags & OpcodesConstants.Acc_Enum) != 0) stringBuilder.Append("enum ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Public)) stringBuilder.Append("public ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Private)) stringBuilder.Append("private ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Protected)) stringBuilder.Append("protected ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Final)) stringBuilder.Append("final ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static)) stringBuilder.Append("static ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synchronized)) stringBuilder.Append("synchronized ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Volatile)) stringBuilder.Append("volatile ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Transient)) stringBuilder.Append("transient ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Abstract)) stringBuilder.Append("abstract ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Strict)) stringBuilder.Append("strictfp ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic)) stringBuilder.Append("synthetic ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Mandated)) stringBuilder.Append("mandated ");
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Enum)) stringBuilder.Append("enum ");
         }
 
         /// <summary>
@@ -1357,7 +1357,7 @@ namespace ObjectWeb.Asm.Util
         ///     .
         /// </summary>
         /// <param name="accessFlags">some access flags.</param>
-        private void AppendRawAccess(int accessFlags)
+        private void AppendRawAccess(ObjectWeb.Asm.Enums.AccessFlags accessFlags)
         {
             stringBuilder.Append("// access flags 0x").Append(accessFlags.ToString("x8").ToUpper
                 ()).Append('\n');

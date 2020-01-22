@@ -37,7 +37,7 @@ namespace ObjectWeb.Asm
         ///     <see cref="Opcodes.Acc_Deprecated" />
         ///     .
         /// </summary>
-        private readonly int accessFlags;
+        private readonly ObjectWeb.Asm.Enums.AccessFlags accessFlags;
 
         /// <summary>The descriptor_index field of the the Record attribute.</summary>
         private readonly int descriptorIndex;
@@ -140,7 +140,7 @@ namespace ObjectWeb.Asm
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        internal RecordComponentWriter(SymbolTable symbolTable, int accessFlags, string name
+        internal RecordComponentWriter(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags accessFlags, string name
             , string descriptor, string signature)
             : base(VisitorAsmApiVersion.Asm7)
         {
@@ -209,8 +209,7 @@ namespace ObjectWeb.Asm
         {
             // name_index, descriptor_index and attributes_count fields use 6 bytes.
             var size = 6;
-            size += Attribute.ComputeAttributesSize(symbolTable, accessFlags & OpcodesConstants
-                                                                     .Acc_Deprecated, signatureIndex);
+            size += Attribute.ComputeAttributesSize(symbolTable, accessFlags & ObjectWeb.Asm.Enums.AccessFlags.Deprecated, signatureIndex);
             size += AnnotationWriter.ComputeAnnotationsSize(lastRuntimeVisibleAnnotation, lastRuntimeInvisibleAnnotation
                 , lastRuntimeVisibleTypeAnnotation, lastRuntimeInvisibleTypeAnnotation);
             if (firstAttribute != null) size += firstAttribute.ComputeAttributesSize(symbolTable);
@@ -229,7 +228,7 @@ namespace ObjectWeb.Asm
             // For ease of reference, we use here the same attribute order as in Section 4.7 of the JVMS.
             var attributesCount = 0;
             if (signatureIndex != 0) ++attributesCount;
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0) ++attributesCount;
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) ++attributesCount;
             if (lastRuntimeVisibleAnnotation != null) ++attributesCount;
             if (lastRuntimeInvisibleAnnotation != null) ++attributesCount;
             if (lastRuntimeVisibleTypeAnnotation != null) ++attributesCount;

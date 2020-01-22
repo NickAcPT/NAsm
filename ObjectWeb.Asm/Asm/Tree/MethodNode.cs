@@ -43,7 +43,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ). This field also indicates if the method is
         ///     synthetic and/or deprecated.
         /// </summary>
-        public int access;
+        public ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The default value of this annotation interface method.</summary>
         /// <remarks>
@@ -308,7 +308,7 @@ namespace ObjectWeb.Asm.Tree
         /// <exception cref="System.InvalidOperationException">
         ///     If a subclass calls this constructor.
         /// </exception>
-        public MethodNode(int access, string name, string descriptor, string signature, string
+        public MethodNode(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string signature, string
             [] exceptions)
             : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, exceptions)
         {
@@ -356,7 +356,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public MethodNode(VisitorAsmApiVersion api, int access, string name, string descriptor, string signature
+        public MethodNode(VisitorAsmApiVersion api, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string signature
             , string[] exceptions)
             : base(api)
         {
@@ -365,7 +365,7 @@ namespace ObjectWeb.Asm.Tree
             desc = descriptor;
             this.signature = signature;
             this.exceptions = Util.AsArrayList(exceptions);
-            if ((access & OpcodesConstants.Acc_Abstract) == 0) localVariables = new List<LocalVariableNode>(5);
+            if (access.HasNotFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Abstract)) localVariables = new List<LocalVariableNode>(5);
             tryCatchBlocks = new List<TryCatchBlockNode>();
             instructions = new InsnList();
         }
@@ -373,7 +373,7 @@ namespace ObjectWeb.Asm.Tree
         // -----------------------------------------------------------------------------------------------
         // Implementation of the MethodVisitor abstract class
         // -----------------------------------------------------------------------------------------------
-        public override void VisitParameter(string name, int access)
+        public override void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
         {
             if (parameters == null) parameters = new List<ParameterNode>(5);
             parameters.Add(new ParameterNode(name, access));

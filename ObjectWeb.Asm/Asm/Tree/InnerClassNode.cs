@@ -35,7 +35,7 @@ namespace ObjectWeb.Asm.Tree
 	    /// <summary>
 	    ///     The access flags of the inner class as originally declared in the enclosing class.
 	    /// </summary>
-	    public int access;
+	    public ObjectWeb.Asm.Enums.AccessFlags access;
 
 	    /// <summary>The (simple) name of the inner class inside its enclosing class.</summary>
 	    /// <remarks>
@@ -88,7 +88,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     the access flags of the inner class as originally declared in the enclosing
 	    ///     class.
 	    /// </param>
-	    public InnerClassNode(string name, string outerName, string innerName, int access
+	    public InnerClassNode(string name, string outerName, string innerName, ObjectWeb.Asm.Enums.AccessFlags access
         )
         {
             this.name = name;

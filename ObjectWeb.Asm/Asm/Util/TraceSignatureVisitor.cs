@@ -142,11 +142,11 @@ namespace ObjectWeb.Asm.Util
         /// <param name="accessFlags">
         ///     for class type signatures, the access flags of the class.
         /// </param>
-        public TraceSignatureVisitor(int accessFlags)
+        public TraceSignatureVisitor(ObjectWeb.Asm.Enums.AccessFlags accessFlags)
             : base(VisitorAsmApiVersion.Asm7)
         {
             /* latest api = */
-            isInterface = (accessFlags & OpcodesConstants.Acc_Interface) != 0;
+            isInterface = accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Interface);
             declaration = new StringBuilder();
         }
 

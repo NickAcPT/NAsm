@@ -27,6 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using ObjectWeb.Asm.Enums;
 
 namespace ObjectWeb.Asm
 {
@@ -335,12 +336,12 @@ namespace ObjectWeb.Asm
         ///     the size of all the attributes in bytes. This size includes the size of the attribute
         ///     headers.
         /// </returns>
-        internal static int ComputeAttributesSize(SymbolTable symbolTable, int accessFlags
+        internal static int ComputeAttributesSize(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags accessFlags
             , int signatureIndex)
         {
             var size = 0;
             // Before Java 1.5, synthetic fields are represented with a Synthetic attribute.
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0 && symbolTable.GetMajorVersion
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && symbolTable.GetMajorVersion
                     () < OpcodesConstants.V1_5)
             {
                 // Synthetic attributes always use 6 bytes.
@@ -356,7 +357,7 @@ namespace ObjectWeb.Asm
             }
 
             // ACC_DEPRECATED is ASM specific, the ClassFile format uses a Deprecated attribute instead.
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
             {
                 // Deprecated attributes always use 6 bytes.
                 symbolTable.AddConstantUtf8(Constants.Deprecated);
@@ -454,17 +455,17 @@ namespace ObjectWeb.Asm
         ///     the constant pool index of a field, method of class signature.
         /// </param>
         /// <param name="output">where the attributes must be written.</param>
-        internal static void PutAttributes(SymbolTable symbolTable, int accessFlags, int
+        internal static void PutAttributes(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags accessFlags, int
             signatureIndex, ByteVector output)
         {
             // Before Java 1.5, synthetic fields are represented with a Synthetic attribute.
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0 && symbolTable.GetMajorVersion
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && symbolTable.GetMajorVersion
                     () < OpcodesConstants.V1_5)
                 output.PutShort(symbolTable.AddConstantUtf8(Constants.Synthetic)).PutInt(0);
             if (signatureIndex != 0)
                 output.PutShort(symbolTable.AddConstantUtf8(Constants.Signature)).PutInt(2).PutShort
                     (signatureIndex);
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0)
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated))
                 output.PutShort(symbolTable.AddConstantUtf8(Constants.Deprecated)).PutInt(0);
         }
 

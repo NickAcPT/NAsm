@@ -123,7 +123,7 @@ namespace ObjectWeb.Asm
         ///     , which are removed when generating the
         ///     ClassFile structure.
         /// </remarks>
-        private readonly int accessFlags;
+        private readonly ObjectWeb.Asm.Enums.AccessFlags accessFlags;
 
         /// <summary>The 'code' field of the Code attribute.</summary>
         private readonly ByteVector code = new ByteVector();
@@ -590,7 +590,7 @@ namespace ObjectWeb.Asm
         ///     .
         /// </param>
         /// <param name="compute">indicates what must be computed (see #compute).</param>
-        internal MethodWriter(SymbolTable symbolTable, int access, string name, string descriptor
+        internal MethodWriter(SymbolTable symbolTable, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor
             , string signature, string[] exceptions, int compute)
             : base(VisitorAsmApiVersion.Asm7)
         {
@@ -811,7 +811,7 @@ namespace ObjectWeb.Asm
             // -----------------------------------------------------------------------------------------------
             /* latest api = */
             this.symbolTable = symbolTable;
-            accessFlags = "<init>".Equals(name) ? access | Constants.Acc_Constructor : access;
+            accessFlags = "<init>".Equals(name) ? access | AccessFlags.Constructor : access;
             nameIndex = symbolTable.AddConstantUtf8(name);
             this.name = name;
             descriptorIndex = symbolTable.AddConstantUtf8(descriptor);
@@ -838,7 +838,7 @@ namespace ObjectWeb.Asm
             {
                 // Update maxLocals and currentLocals.
                 var argumentsSize = Type.GetArgumentsAndReturnSizes(descriptor) >> 2;
-                if ((access & OpcodesConstants.Acc_Static) != 0) --argumentsSize;
+                if (access.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Static)) --argumentsSize;
                 maxLocals = argumentsSize;
                 currentLocals = argumentsSize;
                 // Create and visit the label for the first basic block.
@@ -860,12 +860,12 @@ namespace ObjectWeb.Asm
         // -----------------------------------------------------------------------------------------------
         // Implementation of the MethodVisitor abstract class
         // -----------------------------------------------------------------------------------------------
-        public override void VisitParameter(string name, int access)
+        public override void VisitParameter(string name, ObjectWeb.Asm.Enums.AccessFlags access)
         {
             if (parameters == null) parameters = new ByteVector();
             ++parametersCount;
             parameters.PutShort(name == null ? 0 : symbolTable.AddConstantUtf8(name)).PutShort
-                (access);
+                ((int) access);
         }
 
         public override AnnotationVisitor VisitAnnotationDefault()
@@ -2420,10 +2420,10 @@ namespace ObjectWeb.Asm
             if (source != symbolTable.GetSource() || descriptorIndex != this.descriptorIndex
                                                   || signatureIndex != this.signatureIndex || hasDeprecatedAttribute !=
                                                   ((accessFlags
-                                                    & OpcodesConstants.Acc_Deprecated) != 0))
+                                                    & ObjectWeb.Asm.Enums.AccessFlags.Deprecated) != 0))
                 return false;
             var needSyntheticAttribute = symbolTable.GetMajorVersion() < OpcodesConstants.V1_5
-                                         && (accessFlags & OpcodesConstants.Acc_Synthetic) != 0;
+                                         && accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic);
             if (hasSyntheticAttribute != needSyntheticAttribute) return false;
             if (exceptionsOffset == 0)
             {
@@ -2580,8 +2580,8 @@ namespace ObjectWeb.Asm
         internal void PutMethodInfo(ByteVector output)
         {
             var useSyntheticAttribute = symbolTable.GetMajorVersion() < OpcodesConstants.V1_5;
-            var mask = useSyntheticAttribute ? OpcodesConstants.Acc_Synthetic : 0;
-            output.PutShort(accessFlags & ~mask).PutShort(nameIndex).PutShort(descriptorIndex
+            var mask = useSyntheticAttribute ? ObjectWeb.Asm.Enums.AccessFlags.Synthetic : 0;
+            output.PutShort((int) (accessFlags & ~mask)).PutShort(nameIndex).PutShort(descriptorIndex
             );
             // If this method_info must be copied from an existing one, copy it now and return early.
             if (sourceOffset != 0)
@@ -2595,9 +2595,9 @@ namespace ObjectWeb.Asm
             var attributeCount = 0;
             if (code.length > 0) ++attributeCount;
             if (numberOfExceptions > 0) ++attributeCount;
-            if ((accessFlags & OpcodesConstants.Acc_Synthetic) != 0 && useSyntheticAttribute) ++attributeCount;
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Synthetic) && useSyntheticAttribute) ++attributeCount;
             if (signatureIndex != 0) ++attributeCount;
-            if ((accessFlags & OpcodesConstants.Acc_Deprecated) != 0) ++attributeCount;
+            if (accessFlags.HasFlagFast(ObjectWeb.Asm.Enums.AccessFlags.Deprecated)) ++attributeCount;
             if (lastRuntimeVisibleAnnotation != null) ++attributeCount;
             if (lastRuntimeInvisibleAnnotation != null) ++attributeCount;
             if (lastRuntimeVisibleParameterAnnotations != null) ++attributeCount;

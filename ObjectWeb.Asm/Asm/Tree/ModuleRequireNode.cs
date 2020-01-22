@@ -45,7 +45,7 @@ namespace ObjectWeb.Asm.Tree
 	    ///     <c>ACC_MANDATED</c>
 	    ///     .
 	    /// </summary>
-	    public int access;
+	    public ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The fully qualified name (using dots) of the dependence.</summary>
         public string module;
@@ -79,7 +79,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <literal>null</literal>
         ///     .
         /// </param>
-        public ModuleRequireNode(string module, int access, string version)
+        public ModuleRequireNode(string module, ObjectWeb.Asm.Enums.AccessFlags access, string version)
         {
             this.module = module;
             this.access = access;

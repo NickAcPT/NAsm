@@ -42,7 +42,7 @@ namespace ObjectWeb.Asm.Tree
         ///     ). This field also indicates if
         ///     the field is synthetic and/or deprecated.
         /// </summary>
-        public int access;
+        public ObjectWeb.Asm.Enums.AccessFlags access;
 
         /// <summary>The non standard attributes of this field.</summary>
         /// <remarks>
@@ -161,7 +161,7 @@ namespace ObjectWeb.Asm.Tree
         /// <exception cref="InvalidOperationException">
         ///     If a subclass calls this constructor.
         /// </exception>
-        public FieldNode(int access, string name, string descriptor, string signature, object
+        public FieldNode(ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string signature, object
             value)
             : this(VisitorAsmApiVersion.Asm7, access, name, descriptor, signature, value)
         {
@@ -210,7 +210,7 @@ namespace ObjectWeb.Asm.Tree
         ///     <see cref="string" />
         ///     .
         /// </param>
-        public FieldNode(VisitorAsmApiVersion api, int access, string name, string descriptor, string signature
+        public FieldNode(VisitorAsmApiVersion api, ObjectWeb.Asm.Enums.AccessFlags access, string name, string descriptor, string signature
             , object value)
             : base(api)
         {
