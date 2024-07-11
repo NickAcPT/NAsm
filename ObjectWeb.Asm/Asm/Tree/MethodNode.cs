@@ -761,8 +761,7 @@ namespace ObjectWeb.Asm.Tree
         {
             var exceptionsArray = exceptions == null
                 ? null
-                : Collections.ToArray
-                    (exceptions, new string[0]);
+                : exceptions.ToArray();
             var methodVisitor = classVisitor.VisitMethod(access, name, desc, signature
                 , exceptionsArray);
             if (methodVisitor != null) Accept(methodVisitor);
